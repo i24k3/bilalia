@@ -1,0 +1,63 @@
+
+---
+import Buttons from "../Buttons.astro";
+
+const data = {
+    title: "Welcome to Darul Uloom Bilaliya",
+    quote: "طَلَبُ الْعِلْمِ فَرِيضَةٌ عَلَى كُلِّ مُسْلِمٍ",
+    translation: '"Seeking knowledge is an obligation upon every Muslim."',
+    source: "— Sunan Ibn Majah",
+};
+
+const buttons = [
+    { href: "/academics", text: "Explore", type: "primary" },
+    { href: "/admissions", text: "Admissions", type: "tertiary" },
+];
+
+
+---
+
+
+<section 
+  class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gray-50 text-gray-900"
+>
+
+<div 
+  class="absolute inset-0 z-0"
+  style="
+    background-image: url('data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22 viewBox=%220 0 140 140%22%3E%3Cg stroke=%22%23000%22 stroke-width=%221.2%22 opacity=%220.18%22 fill=%22none%22%3E%3Cpolygon points=%2270,5 130,40 130,100 70,135 10,100 10,40%22/%3E%3Cline x1=%2270%22 y1=%225%22 x2=%2270%22 y2=%22135%22/%3E%3Cline x1=%2210%22 y1=%2240%22 x2=%22130%22 y2=%22100%22/%3E%3Cline x1=%22130%22 y1=%2240%22 x2=%2210%22 y2=%22100%22/%3E%3Cpolygon points=%2270,28 108,50 108,90 70,112 32,90 32,50%22/%3E%3C/g%3E%3C/svg%3E');
+    background-size: 160px;
+    background-repeat: repeat;
+  ">
+</div>
+  <!-- Soft Light Gradient -->
+  <div class="absolute inset-0 bg-linear-to-b from-white/80 via-white/55 to-white/20 backdrop-blur-[1px] z-10"></div>
+
+  <!-- Content -->
+  <div class="relative z-20 text-center px-6 sm:px-8 lg:px-12 max-w-4xl space-y-10">
+
+
+    <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight">
+      {data.title}
+    </h1>
+
+    <div class="bg-white/60 backdrop-blur-md p-6 sm:p-8 rounded-2xl inline-block shadow-[0_8px_32px_rgba(0,0,0,0.12)] space-y-3 border border-white/40">
+      <p class="text-2xl sm:text-3xl font-semibold" lang="ar" dir="rtl">{data.quote}</p>
+      <p class="text-lg sm:text-xl opacity-90">{data.translation}</p>
+      <cite class="block text-base opacity-80">{data.source}</cite>
+    </div>
+
+    <div class="flex flex-col sm:flex-row gap-6 justify-center mt-8">
+        {buttons.map((btn) => (
+    <Buttons
+      href={btn.href}
+      text={btn.text}
+      type={btn.type}
+    />
+  ))}
+    </div>
+
+  </div>
+
+</section>
+

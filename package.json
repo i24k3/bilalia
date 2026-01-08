@@ -1,0 +1,20 @@
+{
+  "name": "darul_ul_bil_site",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/node": "^9.5.1",
+    "@supabase/supabase-js": "^2.90.0",
+    "@tailwindcss/vite": "^4.1.18",
+    "astro": "^5.16.6",
+    "dotenv": "^17.2.3",
+    "isomorphic-dompurify": "^2.35.0",
+    "tailwindcss": "^4.1.18"
+  }
+}

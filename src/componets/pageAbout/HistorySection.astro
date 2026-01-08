@@ -1,0 +1,68 @@
+
+---
+
+const historyData = {
+title: "Our Journey . From Humble Beginnings to a Beacon of Knowledge",
+paragraphs: [
+"Established on 11th Shawwal ul Mukaram 1411 Hijri (1991 CE), Darul Uloom Bilaliya began as a humble institution on a small plot of land (40×60 sq. ft.) in Bilalabad, Lal Bazar. Founded with the vision of preserving authentic Islamic knowledge, the institution grew under the spiritual guidance of renowned scholars including Sheikh Maulana Maseehullah Khan (RA).",
+"Through unwavering community support, divine blessings, and decades of dedication, Darul Uloom Bilaliya has transformed into one of the leading centers of Deobandi education in Kashmir — currently nurturing over 550 residential students and supported by 60 devoted staff members."
+],
+milestone: { year: "1991", text: "Founded with Barakah" },
+image: "https://images.pexels.com/photos/1275393/pexels-photo-1275393.jpeg"
+};
+
+---
+
+<section class="py-32 bg-linear-from-gray-50 to-white">
+    <div class="container mx-auto px-6 max-w-7xl">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+
+            <div class="space-y-12">
+                <div>
+                    <h2 class="text-5xl md:text-6xl font-extrabold text-black tracking-tight">
+                        {historyData.title.split(' . ')[0]}
+                    </h2>
+                    <p class="mt-4 text-xl md:text-2xl text-gray-800 font-medium leading-relaxed">
+                    {historyData.title.split(' . ')[1]}
+                    </p>
+                </div>
+
+                <div class="space-y-7 text-lg leading-relaxed max-w-xl text-gray-800">
+                    {historyData.paragraphs.map(p => <p class="text-gray-500">{p}</p>)}
+                </div>
+
+                <div class="flex items-center gap-8 pt-10">
+                    <div class="w-32 h-32 rounded-2xl bg-white shadow-[0_8px_40px_rgba(0,0,0,0.08)] border border-gray-200 flex flex-col items-center justify-center">
+                        <span class="text-4xl font-extrabold text-emerald-700">{historyData.milestone.year}</span>
+                        <span class="text-xs tracking-wider text-gray-500 mt-1">Hijri 1411</span>
+                    </div>
+                    <div>
+                        <p class="text-3xl font-bold text-black">Established</p>
+                        <p class="text-lg font-medium text-gray-800">{historyData.milestone.text}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IMAGE SIDE -->
+            <div class="relative">
+                <div class="rounded-3xl overflow-hidden shadow-2xl border border-gray-200 bg-white">
+                    <img src={historyData.image} alt="Original Darul Uloom Building" class="w-full h-full object-cover" />
+                </div>
+
+                <div class="absolute -bottom-12 -left-12 backdrop-blur-xl bg-white/70 border border-white/40 shadow-xl p-8 rounded-2xl max-w-xs">
+                    <p class="text-xl font-medium text-gray-800 leading-relaxed italic">
+                    "من عمل صالحا فلنفسه"
+                    </p>
+                    <p class="mt-4 text-sm text-gray-800 text-right">
+                    — Whoever does righteousness, it is for his own soul
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+

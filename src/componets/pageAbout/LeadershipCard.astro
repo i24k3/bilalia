@@ -1,0 +1,43 @@
+---
+const { member } = Astro.props;
+---
+
+<div class="bg-white border border-gray-200 rounded-xl transition-colors duration-200 hover:bg-gray-50">
+  <div class="p-6 text-center">
+
+    <!-- Member Image -->
+    <div class="w-28 h-28 mx-auto mb-6 rounded-full overflow-hidden border border-gray-200 bg-gray-100">
+      {member.image ? (
+        <img
+          src={member.image}
+          alt={member.name}
+          class="w-full h-full object-cover"
+        />
+      ) : (
+        <div class="w-full h-full flex items-center justify-center text-gray-400 text-sm">
+          No Image
+        </div>
+      )}
+    </div>
+
+    <!-- Name -->
+    <h3 class="text-lg font-semibold text-black leading-tight">
+      {member.name}
+    </h3>
+
+    <!-- Position -->
+    <p class="text-sm text-gray-600 mt-1">
+      {member.position}
+    </p>
+
+    <!-- Divider -->
+    <div class="w-12 h-px bg-gray-300 mx-auto my-4"></div>
+
+    <!-- Description -->
+    <p class="text-sm text-gray-700 leading-relaxed">
+      {member.description}
+    </p>
+
+  </div>
+</div>
+

@@ -1,0 +1,40 @@
+---
+import { supabase } from '../lib/supabase.js';
+
+const url = new URL(Astro.request.url);
+const page = parseInt(url.searchParams.get('page') || '1');
+const perPage = 5;
+const start = (page - 1) * perPage;
+const end = start + perPage - 1;
+
+const { data: notifications, error } = await supabase
+  .from('notifications')
+  .select('*')
+  .order('created_at', { ascending: false })
+  .range(start, end);
+
+if (error) console.error(error);
+---
+
+<html>
+<body class="px-4 py-8">
+  <h1 class="text-2xl font-bold mb-6">Notifications</h1>
+  {notifications.length === 0 ? (
+    <p>No notifications yet.</p>
+  ) : (
+    notifications.map(n => (
+      <div class="border p-4 rounded-lg mb-4 shadow-sm">
+        <h2 class="font-semibold text-lg">{n.title}</h2>
+        <p class="text-gray-700 mt-2">{n.content}</p>
+        <p class="text-xs text-gray-400 mt-1">{new Date(n.created_at).toLocaleString()}</p>
+      </div>
+    ))
+  )}
+
+  <div class="flex gap-4 mt-6">
+    {page > 1 && <a href={`?page=${page-1}`} class="px-4 py-2 bg-gray-200 rounded">Previous</a>}
+    {notifications.length === perPage && <a href={`?page=${page+1}`} class="px-4 py-2 bg-gray-200 rounded">Next</a>}
+  </div>
+</body>
+</html>
+
