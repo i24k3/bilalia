@@ -6,20 +6,65 @@ const {
 } = Astro.props;
 
 const base =
-  "font-semibold rounded-2xl transition-all duration-200 text-center inline-block";
-
-// Define classes per type
+  "inline-flex items-center justify-center font-bold tracking-wide rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 relative overflow-hidden";
+  
 let classes;
 
 if (type === "primary") {
-  classes = `${base} py-4 px-12 bg-emerald-600 text-white hover:bg-emerald-700 shadow-sm`;
-} else if (type === "secondary") {
-  classes = `${base} py-4 px-10 border border-emerald-600 text-emerald-600 bg-white hover:bg-emerald-50 shadow-sm`;
-} else if (type === "tertiary") {
-  classes = `${base} py-4 px-10 border border-gray-300 text-gray-700 bg-white hover:bg-gray-100 shadow-sm`;
-} else if (type === "minimal") {
-  classes = `${base} py-3 px-6 text-gray-600 hover:text-emerald-600 bg-transparent shadow-none`;
+  classes = `
+    ${base}
+    px-12 py-4
+    bg-emerald-600 text-white
+    shadow-lg shadow-emerald-600/20
+    hover:bg-emerald-700
+    hover:shadow-xl hover:shadow-emerald-600/30
+    hover:-translate-y-0.5
+    active:translate-y-0
+  `;
+} 
+else if (type === "secondary") {
+
+classes=`
+${base}
+transition 
+transform 
+font-semibold 
+rounded-lg 
+shadow-sm 
+hover:shadow-md 
+duration-300 
+text-white 
+bg-emerald-600 
+hover:bg-emerald-700 
+px-6 py-3 
+hover:-translate-y-0.5"
+`;
+
+} 
+else if (type === "secondary-long") {
+
+classes=`
+${base}
+block w-full transition transform font-semibold rounded-lg shadow-sm hover:shadow-md duration-300 text-white bg-emerald-600 hover:bg-emerald-700 py-4 text-lg rounded-lg
+`;
+
 }
+else if (type === "tertiary") {
+  classes = `
+
+    ${base}
+    px-11 py-4
+    bg-white text-gray-800
+    border border-gray-200
+    shadow-sm
+    hover:bg-gray-50
+    hover:border-gray-300
+    hover:text-emerald-600
+    hover:-translate-y-0.5
+    hover:shadow-md
+  `;
+}
+
 ---
 
 <a href={href} class={classes}>

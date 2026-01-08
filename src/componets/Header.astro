@@ -1,6 +1,7 @@
 
 ---
 import Navlinks from "../componets/Navlinks.astro"
+import Button from "../componets/Buttons.astro"
 
 
 const logo = {
@@ -40,13 +41,8 @@ const ctaButton = { href: "/support", text: "Support Us" };
           {navLinks.map((link) => (
             <Navlinks href={link.href} text={link.text} />
       ))}
-        <!-- {navLinks.map(link => ( -->
-          <!-- <li> -->
-            <!-- <a href={link.href} class="text-base font-medium text-gray-800 hover:text-black transition-colors duration-300">{link.text}</a> -->
-          <!-- </li> -->
-        <!-- ))} -->
         <li>
-          <a href={ctaButton.href} class="transition transform font-semibold rounded-lg shadow-sm hover:shadow-md duration-300 text-white bg-emerald-600 hover:bg-emerald-700 px-6 py-3 hover:-translate-y-0.5">{ctaButton.text}</a>
+            <Button  href={ctaButton.href} text={ctaButton.text} type="secondary"/>
         </li>
       </ul>
     </nav>
@@ -65,11 +61,13 @@ const ctaButton = { href: "/support", text: "Support Us" };
       <ul class="space-y-6 text-center">
         {navLinks.map(link => (
           <li>
-            <a href={link.href} class="block text-lg text-gray-800 hover:text-black transition-colors duration-300">{link.text}</a>
+              <Navlinks href={link.href} text={link.text}/> 
+            <!-- <a href={link.href} class="block text-lg text-gray-800 hover:text-black transition-colors duration-300">{link.text}</a> -->
           </li>
         ))}
         <li class="pt-4">
-          <a href={ctaButton.href} class="block w-full transition transform font-semibold rounded-lg shadow-sm hover:shadow-md duration-300 text-white bg-emerald-600 hover:bg-emerald-700 py-4 text-lg rounded-lg">{ctaButton.text}</a>
+            <Button  href={ctaButton.href} text={ctaButton.text} type="secondary-long"/>
+          <!-- <a href={ctaButton.href} class="block w-full transition transform font-semibold rounded-lg shadow-sm hover:shadow-md duration-300 text-white bg-emerald-600 hover:bg-emerald-700 py-4 text-lg rounded-lg">{ctaButton.text}</a> -->
         </li>
       </ul>
     </div>

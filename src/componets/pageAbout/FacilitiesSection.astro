@@ -19,28 +19,41 @@ const facilitiesList = [
 ];
 ---
 
-<section class="py-56 bg-gray-50">
-  <div class="max-w-5xl mx-auto px-4">
+<section class="py-32 bg-gray-50">
+  <div class="max-w-6xl mx-auto px-6">
 
     <!-- Section Header -->
-    <h2 class="text-5xl md:text-6xl font-black text-black  text-center tracking-tight mb-20">
-      Our Facilities
-    </h2>
+    <div class="text-center mb-24">
+      <h2 class="text-5xl md:text-6xl font-black text-gray-900 tracking-tight">
+        Our Facilities
+      </h2>
+      <p class="mt-6 text-gray-500 text-lg max-w-2xl mx-auto">
+        Thoughtfully designed spaces built to nurture learning, worship, and community.
+      </p>
+    </div>
 
-    <!-- Minimal Table -->
+    <!-- Premium Flat Table Wrapper -->
     <div class="overflow-x-auto">
-      <table class="w-full border-collapse text-left">
-        <thead>
-          <tr class="border-b border-gray-300">
-            <th class="px-4 py-3 text-sm font-medium text-gray-800">Facility</th>
-            <th class="px-4 py-3 text-sm font-medium text-gray-800">Description</th>
+      <table class="min-w-full bg-white rounded-2xl border border-gray-100 divide-y divide-gray-100">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-8 py-5 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+              Facility
+            </th>
+            <th class="px-8 py-5 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+              Description
+            </th>
           </tr>
         </thead>
-        <tbody>
-          {facilitiesList.map((f, idx) => (
-            <tr class={`border-b border-gray-200 hover:bg-gray-100 transition-colors duration-200 ${idx % 2 === 0 ? "bg-white" : "bg-gray-50"}`}>
-              <td class="px-4 py-3 text-gray-900 font-medium">{f.title}</td>
-              <td class="px-4 py-3 text-gray-700">{f.desc}</td>
+        <tbody class="bg-white divide-y divide-gray-100">
+          {facilitiesList.map((f) => (
+            <tr class="transition-all duration-300 hover:bg-gray-50 cursor-default">
+              <td class="px-8 py-6 text-lg font-bold text-gray-900">
+                {f.title}
+              </td>
+              <td class="px-8 py-6 text-gray-600 leading-relaxed">
+                {f.desc}
+              </td>
             </tr>
           ))}
         </tbody>
@@ -48,9 +61,12 @@ const facilitiesList = [
     </div>
 
     <!-- Closing Note -->
-    <div class="text-center mt-12">
-      <p class="text-gray-500 text-sm italic tracking-wide">
-        Every corner built with barakah and excellence • Established 1991
+    <div class="text-center mt-16">
+      <p class="text-gray-400 text-sm tracking-widest uppercase">
+        Built with Barakah & Excellence
+      </p>
+      <p class="mt-2 text-gray-500 italic text-sm">
+        Established 1991
       </p>
     </div>
 

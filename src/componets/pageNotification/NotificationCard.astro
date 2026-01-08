@@ -1,4 +1,8 @@
 ---
+import Buttons from "../Buttons.astro";
+
+
+
 const { announcement } = Astro.props;
 
 // Fallbacks
@@ -60,12 +64,7 @@ const featured = announcement.featured;
 
         <!-- Read More -->
         <div class="pt-4">
-            <a
-                    href={link}
-                    class="inline-flex items-center text-black font-bold text-lg hover:gap-4 transition-all duration-300 group/link"
-                    >
-                    Read More
-            </a>
+            <Buttons href={link} text="Read More" type="tertiary"/>
         </div>
     </div>
 </article>

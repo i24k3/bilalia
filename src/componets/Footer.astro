@@ -1,5 +1,6 @@
 ---
-// Footer.astro
+import Navlinks from "./Navlinks.astro";
+
 const institution = {
   name: "Darul Uloom Bilaliya",
   address: "Ahmada Kadal, Lal Bazar<br>Srinagar, Jammu & Kashmir",
@@ -47,7 +48,7 @@ const contact = {
         <ul class="space-y-3 text-sm">
           {quickLinks.map(link => (
             <li>
-              <a href={link.href} class="text-gray-800 hover:text-black transition-all duration-300 tracking-wide">{link.text}</a>
+                <Navlinks href={link.href} text={link.text}/>
             </li>
           ))}
         </ul>
@@ -59,7 +60,7 @@ const contact = {
         <ul class="space-y-3 text-sm">
           {connectLinks.map(link => (
             <li>
-              <a href={link.href} class="text-gray-800 hover:text-black transition-all duration-300 tracking-wide">{link.text}</a>
+                <Navlinks href={link.href} text={link.text}/>
             </li>
           ))}
         </ul>
