@@ -3,6 +3,7 @@ import { supabase } from "../../lib/supabase.js";
 import NotificationCard from "../../componets/pageNotification/NotificationCard.astro";
 import BaseLayout from "../../layout/BaseLayout.astro";
 
+
 const itemsPerPage = 3;
 
 // Get current page from the route param
@@ -26,6 +27,7 @@ const { data: notifications } = await supabase
 .select("*")
 .order("search_id", { ascending: true })
 .range(start, end);
+
 ---
 
 <BaseLayout>
@@ -53,7 +55,7 @@ const { data: notifications } = await supabase
 
             <div class="grid gap-8 mt-12 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 {notifications && notifications.length > 0
-                ? notifications.map((n) => <NotificationCard notification={n} />)
+                ? notifications.map((n) => <NotificationCard notification={n} path="notification"/>)
                 : <p class="text-gray-500 mt-12 text-lg ">No notifications found.</p>}
             </div>
 
