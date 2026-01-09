@@ -14,9 +14,9 @@ const logo = {
 
 const navLinks = [
   { href: "/about", text: "About" },
-  { href: "/academics", text: "Academics" },
   { href: "/admissions", text: "Admissions" },
-  { href: "/anounce", text: "Announcements" },
+  { href: "/academics", text: "Academics" },
+  { href: "/notification", text: "Notifications" },
   { href: "/contact", text: "Contact" }
 ];
 
@@ -62,12 +62,10 @@ const ctaButton = { href: "/support", text: "Support Us" };
         {navLinks.map(link => (
           <li>
               <Navlinks href={link.href} text={link.text}/> 
-            <!-- <a href={link.href} class="block text-lg text-gray-800 hover:text-black transition-colors duration-300">{link.text}</a> -->
           </li>
         ))}
         <li class="pt-4">
             <Button  href={ctaButton.href} text={ctaButton.text} type="secondary-long"/>
-          <!-- <a href={ctaButton.href} class="block w-full transition transform font-semibold rounded-lg shadow-sm hover:shadow-md duration-300 text-white bg-emerald-600 hover:bg-emerald-700 py-4 text-lg rounded-lg">{ctaButton.text}</a> -->
         </li>
       </ul>
     </div>

@@ -1,0 +1,36 @@
+---
+import Accordion from "../Accordion.astro";
+
+const criteria = [
+  {
+    title: "Minimum Academic Qualification",
+    desc: "Applicants must possess the minimum academic qualification required for the selected program, as defined by the institute."
+  },
+  {
+    title: "Age Requirement",
+    desc: "Candidates must meet the age criteria specified by the institute at the time of admission."
+  },
+  {
+    title: "Relevant Subject Background",
+    desc: "Some programs may require prior study in relevant subjects to ensure academic readiness."
+  },
+];
+---
+
+<section class="bg-white rounded-3xl border border-gray-200 p-8 sm:p-12 max-w-4xl mx-auto">
+  
+  {/* Heading */}
+  <div class="mb-10">
+    <h2 class="text-3xl sm:text-4xl font-black text-black border-l-8 border-emerald-600 pl-4 sm:pl-6">
+      Eligibility Criteria
+    </h2>
+    <p class="mt-4 text-gray-600 text-base sm:text-lg max-w-2xl">
+      Review the eligibility requirements carefully before submitting your application.
+    </p>
+
+    <div class="space-y-5 mt-10">
+    { criteria.map((ct,idx) => <Accordion index={idx+1} title={ct.title} desc={ct.desc} />) }
+    </div>
+  </div>
+</section>
+

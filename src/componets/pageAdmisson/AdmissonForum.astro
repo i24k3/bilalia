@@ -1,0 +1,47 @@
+---
+const {
+  title = "Admission Form",
+  description = "Apply for admission by filling out the official online form.",
+  googleFormUrl = "https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform",
+} = Astro.props;
+---
+
+<section class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+  <!-- Header -->
+  <div class="p-8 space-y-3">
+    <h2 class="text-2xl font-black text-gray-900">{title}</h2>
+    <p class="text-gray-600 max-w-xl">
+      {description}
+    </p>
+  </div>
+
+  <!-- Embedded Form -->
+  <div class="relative w-full h-[700px] border-t border-gray-100">
+    <iframe
+      src={`${googleFormUrl}?embedded=true`}
+      class="w-full h-full"
+      loading="lazy"
+      frameborder="0"
+      marginheight="0"
+      marginwidth="0"
+    >
+      Loading…
+    </iframe>
+  </div>
+
+  <!-- Fallback -->
+  <div class="p-6 bg-gray-50 border-t border-gray-100 text-center">
+    <p class="text-sm text-gray-600">
+      Having trouble viewing the form?
+    </p>
+    <a
+      href={googleFormUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-block mt-3 px-6 py-3 rounded-full bg-black text-white text-sm font-semibold transition hover:bg-gray-800"
+    >
+      Open Form in New Tab
+    </a>
+  </div>
+</section>
+

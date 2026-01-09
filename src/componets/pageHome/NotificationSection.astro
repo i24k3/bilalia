@@ -1,66 +1,30 @@
 ---
+
 import { supabase } from "../../lib/supabase.js";
 import Buttons from "../Buttons.astro";
+import NotificationTable from "../pageHome/NotificationTable.astro";
 
 // fetch the latest 7 announcements
-const { data: announcements, error } = await supabase
-  .from('anouncements') // table name matches
+const { data: notifications, error } = await supabase
+  .from('notifications') // table name matches
   .select('search_id, title, date_onsite')
   .order('date_onsite', { ascending: false })
   .limit(7);
 
 // Server-side logging
 console.log("Supabase error:", error);
-console.log("Announcements fetched:", announcements);
+console.log("Announcements fetched:", notifications);
 ---
-
 <section class="py-28 bg-gray-50">
   <div class="container mx-auto px-6 max-w-6xl">
     <h2 class="text-5xl md:text-6xl font-black text-center mb-16 text-gray-900">
       Latest News & Announcements
     </h2>
 
-    <div class="bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden">
-      <table class="w-full table-auto">
-        <thead class="bg-gray-100">
-          <tr class="text-left font-semibold text-gray-800">
-            <th class="py-5 px-6 w-40 text-lg">Date</th>
-            <th class="py-5 px-6 text-lg">Title</th>
-            <th class="py-5 px-6 w-32 text-right text-lg">Action</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {announcements && announcements.length > 0 ? (
-            announcements.map((n) => (
-              <tr class="group border-b border-gray-200 hover:bg-gray-100 cursor-pointer">
-                <td class="py-4 px-4 text-sm font-semibold text-green-700 whitespace-nowrap">
-                  {new Date(n.date_onsite).toLocaleDateString()}
-                </td>
-                <td class="py-4 px-4 text-base font-bold text-gray-900">
-                  <a href={`/notification/${n.search_id}`} class="hover:underline">{n.title}</a>
-                </td>
-                <td class="py-4 px-4 text-right">
-                  <a href={`/notification/${n.search_id}`} class="font-semibold text-green-700 hover:text-green-900 inline-flex items-center gap-1">
-                    Read <span class="transition-transform group-hover:translate-x-1">→</span>
-                  </a>
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colspan="3" class="text-center py-6 text-gray-400">
-                  Notifications not loaded 
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-    </div>
+    <NotificationTable notifications={notifications} />
 
     <div class="text-center mt-16">
       <Buttons href="/notification" text="Read All Notifications" type="tertiary" />
     </div>
   </div>
 </section>
-

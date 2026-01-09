@@ -1,0 +1,28 @@
+---
+import Table from '../../componets/Table.astro';
+
+const dates = [
+  { event: "Application Opens", date: "01 March 2026" },
+  { event: "Last Date to Apply", date: "31 May 2026" },
+  { event: "Admission Confirmation", date: "15 June 2026" },
+];
+
+const dateColumns = [
+  { label: 'Event', key: 'event', align: 'left' },
+  { label: 'Date', key: 'date', align: 'right' },
+];
+---
+
+<section class="bg-white rounded-3xl border border-gray-200 p-8 sm:p-12 max-w-4xl mx-auto mt-32 mb-32">
+  <div class="mb-10">
+    <h2 class="text-3xl sm:text-4xl font-black text-black border-l-8 border-emerald-600 pl-4 sm:pl-6">
+      Important Dates
+    </h2>
+    <p class="mt-4 text-gray-600 text-base sm:text-lg max-w-2xl">
+      Keep track of key admission deadlines to ensure a smooth process.
+    </p>
+  </div>
+
+  <Table columns={dateColumns} data={dates} />
+</section>
+

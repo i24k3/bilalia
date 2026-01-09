@@ -8,7 +8,7 @@ import DOMPurify from "isomorphic-dompurify";
 const { id } = Astro.params;
 
 const { data: post, error } = await supabase
-  .from('anouncements')
+  .from('notifications')
   .select('*')
   .eq('search_id', id)
   .single();
@@ -78,7 +78,7 @@ const safeUrdu = post?.urdu_translation ? DOMPurify.sanitize(post.urdu_translati
             >
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
             </svg>
-            All Announcements
+            All Notifications 
           </a>
 
           {/* Badges */}
@@ -156,7 +156,7 @@ const safeUrdu = post?.urdu_translation ? DOMPurify.sanitize(post.urdu_translati
           {/* Opening */}
           <section>
             <h2 class="text-3xl sm:text-4xl font-bold text-black mb-6 border-l-8 border-emerald-600 pl-4 sm:pl-6">
-              {post.opening_titlle || "Announcement"}
+              {post.opening_titlle || "Notification"}
             </h2>
             <p class="text-lg sm:text-xl leading-relaxed text-gray-800">
               {post.opening || post.excerpt || "We are pleased to share this important update with our community and stakeholders."}

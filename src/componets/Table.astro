@@ -1,0 +1,41 @@
+---
+/**
+ * Props:
+ * columns: Array<{ label: string, key: string, align?: 'left' | 'right' }>
+ * data: Array of objects with keys matching columns
+ */
+const { columns, data } = Astro.props;
+---
+
+<div class="overflow-x-auto">
+  <table class="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-xl">
+    <thead class="bg-gray-50">
+      <tr>
+        {columns.map(column => (
+          <th
+            scope="col"
+            class={`px-6 py-3 text-${column.align ?? 'left'} text-base sm:text-lg font-black text-black`}
+          >
+            {column.label}
+          </th>
+        ))}
+      </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200">
+      {data.map(row => (
+        <tr>
+          {columns.map(column => (
+            <td
+              class={`px-6 py-4 text-${column.align ?? 'left'} ${
+                column.align === 'right' ? 'text-black font-medium' : 'text-gray-700'
+              } text-base sm:text-lg`}
+            >
+              {row[column.key]}
+            </td>
+          ))}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+

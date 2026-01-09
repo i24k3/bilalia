@@ -1,0 +1,32 @@
+---
+import Table from "../../componets/Table.astro";
+import ImportantDates from "../../componets/pageAdmisson/ImportantDates.astro"
+
+
+const fees = [
+  { label: "Application Fee", amount: "₹1,000" },
+  { label: "Tuition Fee", amount: "₹45,000 / year" },
+  { label: "Other Charges", amount: "₹5,000" },
+];
+const feeColumns = [
+  { label: 'Fee Type', key: 'label', align: 'left' },
+  { label: 'Amount', key: 'amount', align: 'right' },
+];
+---
+
+<section class="bg-white rounded-3xl border border-gray-200 p-8 sm:p-12 max-w-4xl mx-auto mt-32 mb-32">
+
+  {/* Heading */}
+  <div class="mb-10">
+    <h2 class="text-3xl sm:text-4xl font-black text-black border-l-8 border-emerald-600 pl-4 sm:pl-6">
+      Fee Structure
+    </h2>
+    <p class="mt-4 text-gray-600 text-base sm:text-lg max-w-2xl">
+      A transparent breakdown of fees applicable for the admission process.
+    </p>
+  </div>
+
+  <Table columns={feeColumns} data={fees} />
+    <ImportantDates/>
+</section>
+

@@ -1,0 +1,59 @@
+---
+const steps = [
+  { title: "Application Submission", desc: "Fill out the online or offline admission form." },
+  { title: "Document Verification", desc: "Academic records are verified by the institute." },
+  { title: "Merit / Entrance Review", desc: "Selection based on merit or entrance criteria." },
+  { title: "Final Admission", desc: "Fee payment and seat confirmation." },
+];
+---
+
+<section class="bg-white rounded-3xl p-8 sm:p-12 max-w-4xl mx-auto mt-32 mb-32">
+  
+  {/* Heading */}
+  <div class="mb-10">
+    <h2 class="text-3xl sm:text-4xl font-black text-black border-l-8 border-emerald-600 pl-4 sm:pl-6">
+      Admission Process
+    </h2>
+    <p class="mt-4 text-gray-600 text-base sm:text-lg max-w-2xl">
+      Follow these simple steps to complete your admission smoothly and securely.
+    </p>
+  </div>
+
+  {/* Steps */}
+  <ol class="relative space-y-10">
+    {/* Vertical line */}
+    <div class="absolute left-5 top-0 bottom-0 w-px bg-gray-200 hidden sm:block"></div>
+
+    {steps.map((step, i) => (
+      <li class="relative flex gap-6 items-start">
+        
+        {/* Step Number */}
+        <span class="
+          flex-shrink-0
+          w-10 h-10
+          rounded-full
+          bg-black text-white
+          flex items-center justify-center
+          font-black text-base
+          shadow-lg
+          ring-4 ring-white
+        ">
+          {i + 1}
+        </span>
+
+        {/* Content */}
+        <div class="pt-1">
+          <h3 class="text-lg sm:text-xl font-bold text-black">
+            {step.title}
+          </h3>
+          <p class="mt-2 text-gray-600 text-sm sm:text-base leading-relaxed max-w-xl">
+            {step.desc}
+          </p>
+        </div>
+
+      </li>
+    ))}
+  </ol>
+
+</section>
+

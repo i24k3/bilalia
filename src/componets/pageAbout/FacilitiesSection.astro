@@ -1,4 +1,6 @@
 ---
+import Table from '../Table.astro';
+
 const facilitiesList = [
   { 
     title: "Main Masjid", 
@@ -17,6 +19,11 @@ const facilitiesList = [
     desc: "Clean and hygienic dining facility serving nutritious meals." 
   }
 ];
+
+const facilityColumns = [
+  { label: 'Facility', key: 'title', align: 'left' },
+  { label: 'Description', key: 'desc', align: 'left' },
+];
 ---
 
 <section class="py-32 bg-gray-50">
@@ -32,33 +39,8 @@ const facilitiesList = [
       </p>
     </div>
 
-    <!-- Premium Flat Table Wrapper -->
-    <div class="overflow-x-auto">
-      <table class="min-w-full bg-white rounded-2xl border border-gray-100 divide-y divide-gray-100">
-        <thead class="bg-gray-50">
-          <tr>
-            <th class="px-8 py-5 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
-              Facility
-            </th>
-            <th class="px-8 py-5 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
-              Description
-            </th>
-          </tr>
-        </thead>
-        <tbody class="bg-white divide-y divide-gray-100">
-          {facilitiesList.map((f) => (
-            <tr class="transition-all duration-300 hover:bg-gray-50 cursor-default">
-              <td class="px-8 py-6 text-lg font-bold text-gray-900">
-                {f.title}
-              </td>
-              <td class="px-8 py-6 text-gray-600 leading-relaxed">
-                {f.desc}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <!-- Table -->
+    <Table columns={facilityColumns} data={facilitiesList} />
 
     <!-- Closing Note -->
     <div class="text-center mt-16">
