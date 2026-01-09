@@ -1,0 +1,92 @@
+
+---
+import { supabase } from "../../lib/supabase.js";
+import NotificationCard from "../../componets/pageNotification/NotificationCard.astro";
+import BaseLayout from "../../layout/BaseLayout.astro";
+
+
+const itemsPerPage = 3;
+
+// Get current page from the route param
+const eventsPage = parseInt(Astro.params.eventspage) || 1;
+
+// Fetch total count for pagination
+const { count } = await supabase
+.from("events")
+.select("*", { count: "exact", head: true });
+
+// Calculate total pages
+const totalPages = Math.ceil(count / itemsPerPage);
+
+// Calculate range for current page
+const start = (eventsPage - 1) * itemsPerPage;
+const end = start + itemsPerPage - 1;
+
+const { data: events } = await supabase
+.from("events")
+.select("*")
+.order("search_id", { ascending: true })
+.range(start, end);
+
+---
+
+<BaseLayout>
+
+  <main class="min-h-screen bg-gradient-to-b from-gray-50 to-white pt-36 pb-24">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+
+      <!-- Header -->
+      <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900">Latest Events</h1>
+      <p class="mt-4 text-lg md:text-xl text-gray-500 max-w-xl mx-auto">Stay updated with Darul Uloom Bilaliya</p>
+
+      <!-- Pagination -->
+      <div class="flex justify-center mt-16 gap-3 flex-wrap md:hidden">
+        {Array.from({ length: totalPages }, (_, i) => {
+          const pageNumber = i + 1;
+          const isActive = pageNumber === eventsPage;
+          return (
+            <a
+              class={`px-5 py-2 rounded-xl text-sm font-medium transition-all duration-200 
+                ${isActive ? "bg-gray-900 text-white shadow-lg" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
+              href={`/events/${pageNumber}`}
+            >
+              {pageNumber}
+            </a>
+          );
+        })}
+      </div>
+
+      <!-- Events Grid -->
+      <div class="grid gap-10 mt-16 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        {events && events.length > 0
+          ? events.map((event) => (
+              <NotificationCard 
+                notification={event} 
+                path="event"
+              />
+            ))
+          : <p class="text-gray-400 mt-12 text-lg">No Events found.</p>}
+      </div>
+
+      <!-- Pagination -->
+      <div class="flex justify-center mt-16 gap-3 flex-wrap">
+        {Array.from({ length: totalPages }, (_, i) => {
+          const pageNumber = i + 1;
+          const isActive = pageNumber === eventsPage;
+          return (
+            <a
+              class={`px-5 py-2 rounded-xl text-sm font-medium transition-all duration-200 
+                ${isActive ? "bg-gray-900 text-white shadow-lg" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
+              href={`/events/${pageNumber}`}
+            >
+              {pageNumber}
+            </a>
+          );
+        })}
+      </div>
+
+    </div>
+  </main>
+
+</BaseLayout>
+
