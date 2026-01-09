@@ -1,0 +1,56 @@
+<div
+  id="page-loader"
+  class="fixed inset-0 z-[9999] flex items-center justify-center bg-white/70 backdrop-blur-sm hidden"
+>
+  <!-- Soft gradient overlay -->
+  <div class="absolute inset-0 bg-gradient-to-b from-white via-gray-50 to-gray-100"></div>
+
+  <!-- Ambient soft glows -->
+  <div class="absolute top-[-20%] left-[-10%] w-96 h-96 bg-indigo-200/20 rounded-full blur-[130px]"></div>
+  <div class="absolute bottom-[-15%] right-[-5%] w-80 h-80 bg-indigo-300/15 rounded-full blur-[120px]"></div>
+
+  <div class="relative z-10 text-center px-6 sm:px-12">
+    <h1 class="text-4xl md:text-5xl font-semibold tracking-tight mb-8 text-gray-900">
+      بسم الله الرحمن الرحيم
+    </h1>
+
+    <!-- Spinner -->
+    <div class="relative w-16 h-16 mx-auto mb-6">
+      <div class="absolute inset-0 rounded-full border-4 border-gray-300/30"></div>
+      <div class="absolute inset-0 rounded-full border-4 border-t-indigo-500 border-b-transparent animate-spin"></div>
+    </div>
+
+    <p class="text-gray-500 text-sm uppercase tracking-wider animate-pulse">
+      Loading...
+    </p>
+  </div>
+</div>
+
+<script is:inline>
+  const STORAGE_KEY = "home_loader_seen_at";
+  const ONE_HOUR = 60 * 60 * 1000;
+
+  const now = Date.now();
+  const lastSeen = localStorage.getItem(STORAGE_KEY);
+
+  const shouldShow =
+    !lastSeen || now - Number(lastSeen) > ONE_HOUR;
+
+  if (shouldShow) {
+    localStorage.setItem(STORAGE_KEY, now.toString());
+
+    const loader = document.getElementById("page-loader");
+    loader?.classList.remove("hidden");
+
+    setTimeout(() => {
+      loader?.classList.add(
+        "opacity-0",
+        "transition-opacity",
+        "duration-1000"
+      );
+
+      setTimeout(() => loader?.remove(), 1000);
+    }, 2000);
+  }
+</script>
+
