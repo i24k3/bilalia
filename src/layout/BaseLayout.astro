@@ -1,39 +1,41 @@
 ---
 import "../styles/global.css";
-
 import Header from "../componets/Header.astro";
 import Footer from "../componets/Footer.astro";
+import PageLoader from "../componets/pageHome/PageLoader.astro";
 
-
-const { pageTitle } =  Astro.props;
+const { pageTitle } = Astro.props;
 ---
-
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Darul Uloom Bilaliya</title>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageTitle || "Darul Uloom Bilaliya"}</title>
 
-        <!-- Arabic + Latin fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
 
-<style>
-    .font-arabic { font-family: 'Amiri', 'Cairo', 'Noto Naskh Arabic', serif; }
-    .font-latin { font-family: 'Cairo', system-ui, sans-serif; }
+    <style>
+        .font-arabic { font-family: 'Amiri', 'Cairo', 'Noto Naskh Arabic', serif; }
+        .font-latin { font-family: 'Cairo', system-ui, sans-serif; }
 
-    html, body { overflow-y: scroll; scrollbar-width: none; }
-    body::-webkit-scrollbar { display: none; }
-</style>
+        html, body { overflow-y: scroll; scrollbar-width: none; }
+        body::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="font-arabic bg-gray-50 min-h-screen">
 
-    </head>
-    <body class="font-arabic bg-gray-50 min-h-screen">
-        <Header/>
-            <slot/>
-        <Footer/>
-    </body>
+    <!-- Page Loader -->
+    <PageLoader client:load />
+
+    <Header/>
+    <slot/>
+    <Footer/>
+
+</body>
 </html>
 
