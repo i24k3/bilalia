@@ -36,7 +36,7 @@ const { data: notifications } = await supabase
             <p class="text-xl text-gray-600 mt-4">Stay updated with Darul Uloom Bilaliya</p>
 
             <!-- Pagination -->
-            <div class="flex justify-center mt-12 gap-2 flex-wrap">
+            <div class="flex justify-center mt-12 gap-2 flex-wrap md:hidden">
                 {Array.from({ length: totalPages }, (_, i) => {
                 const pageNumber = i + 1;
                 return (
@@ -54,7 +54,7 @@ const { data: notifications } = await supabase
             <div class="grid gap-8 mt-12 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 {notifications && notifications.length > 0
                 ? notifications.map((n) => <NotificationCard notification={n} />)
-                : <p class="text-gray-500 mt-12 text-lg">No notifications found.</p>}
+                : <p class="text-gray-500 mt-12 text-lg ">No notifications found.</p>}
             </div>
 
             <!-- Pagination -->
