@@ -28,16 +28,21 @@ const { data: events } = await supabase
 .order("search_id", { ascending: true })
 .range(start, end);
 
+
+const pageData = {
+    heading: "Latest Event's",
+    subHeading: "Stay updated with Darul Uloom Bilaliya",
+};
 ---
 
 <BaseLayout>
 
-  <main class="min-h-screen bg-gradient-to-b from-gray-50 to-white pt-36 pb-24">
+  <main class="min-h-screen bg-linear-to-b from-gray-50 to-white pt-36 pb-24">
     <div class="max-w-7xl mx-auto px-6 text-center">
 
       <!-- Header -->
-      <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900">Latest Events</h1>
-      <p class="mt-4 text-lg md:text-xl text-gray-500 max-w-xl mx-auto">Stay updated with Darul Uloom Bilaliya</p>
+      <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900">{ pageData.heading }</h1>
+      <p class="mt-4 text-lg md:text-xl text-gray-500 max-w-xl mx-auto">{ pageData.subHeading }</p>
 
       <!-- Pagination -->
       <div class="flex justify-center mt-16 gap-3 flex-wrap md:hidden">
