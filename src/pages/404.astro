@@ -3,56 +3,74 @@ import Buttons from "../componets/Buttons.astro";
 import BaseLayout from "../layout/BaseLayout.astro";
 
 const data = {
-  title: "404 — Page Not Found",
-  quote: "We couldn't find the page you're looking for.",
-  translation: "It seems the page has moved or never existed.",
-  source: "",
+title: "404",
+quote: "سُبْحَانَ اللَّهِ — Even when paths are lost, Allah never is.",
+translation:
+"This page could not be found. Let this moment be a reminder: remember Allah, and hearts find peace.",
+source: "“Verily, in the remembrance of Allah do hearts find rest.” (Qur’an 13:28)",
 };
 
 const buttons = [
-  { href: "/", text: "Go Home", type: "primary" },
-  { href: "/academics", text: "Explore Academics", type: "tertiary" },
+{ href: "/", text: "Go Home", type: "primary" },
+{ href: "/academics", text: "Explore Academics", type: "tertiary" },
 ];
 ---
 
 <BaseLayout>
+    <div class="min-h-screen bg-gray-50 pt-24 pb-16 flex items-center justify-center">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
 
-<div class="min-h-screen bg-gray-50 pt-20 sm:pt-28 pb-12 sm:pb-16 flex items-center justify-center">
+                {/* CONTENT */}
+                <div class="px-8 sm:px-14 py-14 sm:py-20 text-center">
 
-  <div class="container mx-auto px-4 sm:px-6 max-w-4xl">
+                    {/* 404 — subtle */}
+                    <span class="block text-sm tracking-widest text-gray-400 mb-6">
+                        ERROR 404
+                    </span>
 
-    <div class="bg-white rounded-3xl border border-gray-200 overflow-hidden">
+                    {/* Dhikr / Quote */}
+                    <h1 class="text-3xl sm:text-4xl text-gray-900 leading-snug mb-4">
+                        {data.quote}
+                    </h1>
 
-      {/* HEADER */}
-      <div class="px-6 sm:px-12 pt-12 sm:pt-16 pb-10 sm:pb-12 text-center">
-        <h1 class="text-7xl sm:text-9xl font-black text-black mb-6 tracking-tighter">
-          404
-        </h1>
-        <p class="text-2xl sm:text-3xl text-gray-800 font-semibold mb-4">
-          {data.quote}
-        </p>
-        <p class="text-lg sm:text-xl text-gray-500 mb-8">
-          {data.translation}
-        </p>
-      </div>
+                    {/* Divider */}
+                    <div class="w-16 h-px bg-gray-300 mx-auto my-8" />
 
-      {/* BUTTONS */}
-      <div class="flex flex-col sm:flex-row justify-center gap-6 px-6 sm:px-12 pb-12 sm:pb-16">
-        {buttons.map((btn) => (
-          <Buttons href={btn.href} text={btn.text} type={btn.type} />
-        ))}
-      </div>
+                    {/* Translation */}
+                    <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-6">
+                    {data.translation}
+                    </p>
 
-      {/* FOOTER */}
-      <div class="text-center px-6 sm:px-12 pb-12 sm:pb-16 border-gray-200 text-gray-500 text-xs sm:text-sm tracking-widest uppercase">
-        Darul Uloom Bilaliya • Established 1991
-      </div>
+                    {/* Source */}
+                    {data.source && (
+                    <p class="text-sm text-gray-400 italic">
+                    {data.source}
+                    </p>
+                    )}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {/* BUTTONS */}
+        <div class="flex flex-col sm:flex-row justify-center gap-6 px-6 sm:px-12 pb-12 sm:pb-16">
+            {buttons.map((btn) => (
+            <Buttons href={btn.href} text={btn.text} type={btn.type} />
+            ))}
+        </div>
+
+        {/* FOOTER */}
+        <div class="text-center px-6 sm:px-12 pb-12 sm:pb-16 border-gray-200 text-gray-500 text-xs sm:text-sm tracking-widest uppercase">
+            Darul Uloom Bilaliya • Established 1991
+        </div>
 
     </div>
-    
-  </div>
 
-</div>
+    </div>
+
+    </div>
 
 </BaseLayout>
 
