@@ -1,0 +1,65 @@
+---
+export const prerender = false;
+
+import BaseLayout from "../../../layout/BaseLayout.astro"
+import AudioCard from "../../../componets/pageLectures/AudioCard.astro";
+import Pagination from "../../../componets/Pagination.astro";
+
+import { supabase } from "../../../lib/supabase.js";
+
+const itemsPerPage = 3;
+const audioPage = parseInt(Astro.params.audiopage) || 1;
+
+const { count: audioCount } = await supabase
+.from("lectures")
+.select("*", { count: "exact", head: true })
+.eq("type", "audio");
+
+const audioTotalPages = Math.ceil(audioCount / itemsPerPage);
+const audioStart = (audioPage - 1) * itemsPerPage;
+const audioEnd = audioStart + itemsPerPage - 1;
+
+const { data: audioLectures } = await supabase
+.from("lectures")
+.select("*")
+.eq("type", "audio")
+.order("search_id", { ascending: true })
+.range(audioStart, audioEnd);
+
+const pageData = {
+heading: "Lectures",
+subHeading: "Engage with our latest audio and video lectures, curated for your learning journey",
+};
+---
+<BaseLayout>
+    <main class="min-h-screen bg-gray-50 pt-36 pb-24">
+        {/* HEADER */}
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900">
+                {pageData.heading}
+            </h1>
+            <p class="mt-4 text-lg md:text-xl text-gray-500 max-w-2xl mx-auto">
+            {pageData.subHeading}
+            </p>
+        </div>
+        <section
+                id="audios-section"
+                class="max-w-7xl mx-auto px-6 mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+                >
+                {audioLectures && audioLectures.length > 0
+                ? audioLectures.map((lecture) => (
+                <AudioCard
+                lecture={lecture}
+                class="w-full shadow-lg rounded-2xl border border-gray-200 transition hover:shadow-2xl"
+                />
+                ))
+                : <p class="text-gray-400 w-full text-center">No audio lectures available.</p>}
+        </section>
+        {/* PAGINATION */}
+        <div class="mt-12 flex justify-center">
+            <Pagination totalPages={audioTotalPages} currentPage={audioPage} baseUrl="/lectures/audio" />
+        </div>
+
+
+    </main>
+</BaseLayout>

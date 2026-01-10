@@ -1,0 +1,105 @@
+---
+const { lecture } = Astro.props;
+
+/*
+Expected lecture shape (from Supabase):
+{
+  title,
+  speaker,
+  duration,
+  language,
+  category,
+  media_url,
+  description,
+  created_at
+}
+*/
+
+const formattedDate = lecture?.created_at
+  ? new Date(lecture.created_at).toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    })
+  : null;
+---
+<article class="bg-white rounded-2xl border border-gray-200 shadow-lg p-6 sm:p-8 space-y-6">
+
+  {/* HEADER */}
+  <div class="space-y-2">
+    <h3 class="text-2xl sm:text-3xl font-bold text-black">
+      {lecture.title}
+    </h3>
+
+    <div class="flex flex-wrap items-center gap-4 text-sm sm:text-base text-gray-500">
+      {lecture.speaker && (
+        <span class="font-medium text-gray-700">
+          {lecture.speaker}
+        </span>
+      )}
+
+      {lecture.duration && (
+        <span>
+          {lecture.duration}
+        </span>
+      )}
+
+      {lecture.language && (
+        <span class="uppercase tracking-wider">
+          {lecture.language}
+        </span>
+      )}
+    </div>
+  </div>
+
+  {/* CATEGORY BADGE */}
+  {lecture.category && (
+    <div>
+      <span class="inline-block px-4 py-1.5 text-xs font-semibold tracking-widest uppercase rounded-full bg-gray-100 text-gray-800 border border-gray-200">
+        {lecture.category}
+      </span>
+    </div>
+  )}
+
+  {/* DESCRIPTION */}
+  {lecture.description && (
+    <p class="text-gray-700 text-base sm:text-lg leading-relaxed">
+      {lecture.description}
+    </p>
+  )}
+
+  {/* AUDIO PLAYER */}
+  <div class="pt-2">
+    <audio
+      controls
+      preload="none"
+      class="w-full"
+      src={lecture.media_url}
+    >
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+
+  {/* FOOTER */}
+  <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-gray-200 text-sm text-gray-500">
+    {formattedDate && (
+      <span>
+        {formattedDate}
+      </span>
+    )}
+
+    {/* DOWNLOAD LINK */}
+    {lecture.media_url && (
+      <a
+        href={lecture.media_url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="font-semibold text-black hover:underline"
+      >
+        Download Audio
+      </a>
+    )}
+  </div>
+
+</article>
+

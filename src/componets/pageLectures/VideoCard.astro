@@ -1,0 +1,122 @@
+---
+const { lecture } = Astro.props;
+
+
+/*
+Expected lecture shape:
+{
+  title,
+  media_url,   // normal YouTube URL like https://www.youtube.com/watch?v=VIDEO_ID
+  thumbnail_url,
+  speaker,
+  duration,
+  category,
+  description,
+  created_at
+}
+*/
+
+// Format date
+const formattedDate = lecture?.created_at
+  ? new Date(lecture.created_at).toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    })
+  : null;
+
+// Convert normal YouTube URL to embed URL
+const getEmbedUrl = (url) => {
+  if (!url) return '';
+  try {
+    const urlObj = new URL(url);
+    // Only handle YouTube links
+    if (urlObj.hostname.includes('youtube.com') || urlObj.hostname.includes('youtu.be')) {
+      let videoId = '';
+      if (urlObj.hostname.includes('youtube.com')) {
+        videoId = urlObj.searchParams.get('v');
+      } else if (urlObj.hostname.includes('youtu.be')) {
+        videoId = urlObj.pathname.slice(1); // remove leading '/'
+      }
+      return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
+    }
+    return url; // fallback for other URLs
+  } catch {
+    return url; // fallback if invalid URL
+  }
+};
+
+const embedUrl = getEmbedUrl(lecture.media_url);
+---
+<article class="bg-white rounded-3xl border border-gray-200 overflow-hidden">
+
+  {/* VIDEO */}
+  <div class="relative w-full aspect-video bg-black">
+    <iframe
+      src={embedUrl}
+      title={lecture.title}
+      class="absolute inset-0 w-full h-full"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
+  </div>
+
+  {/* CONTENT */}
+  <div class="p-6 sm:p-8 space-y-6">
+
+    {/* CATEGORY */}
+    {lecture.category && (
+      <span class="inline-block px-4 py-1.5 text-xs font-semibold tracking-widest uppercase rounded-full bg-gray-100 text-gray-800 border border-gray-200">
+        {lecture.category}
+      </span>
+    )}
+
+    {/* TITLE */}
+    <h3 class="text-2xl sm:text-3xl font-black text-black leading-tight">
+      {lecture.title}
+    </h3>
+
+    {/* META */}
+    <div class="flex flex-wrap items-center gap-5 text-sm sm:text-base text-gray-500">
+      {lecture.speaker && (
+        <span class="font-medium text-gray-700">
+          {lecture.speaker}
+        </span>
+      )}
+
+      {lecture.duration && (
+        <span>
+          {lecture.duration}
+        </span>
+      )}
+
+      {formattedDate && (
+        <span>
+          {formattedDate}
+        </span>
+      )}
+    </div>
+
+    {/* DESCRIPTION */}
+    {lecture.description && (
+      <p class="text-gray-700 text-base sm:text-lg leading-relaxed">
+        {lecture.description}
+      </p>
+    )}
+
+    {/* ACTIONS */}
+    <div class="pt-4 border-t border-gray-200 flex flex-wrap items-center gap-4">
+      <a
+        href={lecture.media_url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-3 px-6 py-3 bg-black text-white text-sm sm:text-base font-semibold rounded-full hover:bg-black/80 transition"
+      >
+        Watch on YouTube
+      </a>
+    </div>
+
+  </div>
+
+</article>
+
