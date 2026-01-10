@@ -1,0 +1,24 @@
+---
+// Pagination.astro
+// Props:
+// - totalPages: number of pages
+// - currentPage: current page number
+// - baseUrl: base URL for links
+
+const { totalPages = 1, currentPage = 1, baseUrl = '/' } = Astro.props;
+---
+<div class="flex justify-center mt-12 gap-2 flex-wrap">
+  {Array.from({ length: totalPages }, (_, i) => {
+    const pageNumber = i + 1;
+    const isCurrent = pageNumber === currentPage;
+    return (
+      <a
+        class={`px-4 py-2 rounded hover:bg-gray-300 ${isCurrent ? "bg-black text-white" : "bg-gray-200 text-black"}`}
+        href={`${baseUrl}/${pageNumber}`}
+      >
+        {pageNumber}
+      </a>
+    );
+  })}
+</div>
+
