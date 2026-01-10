@@ -1,8 +1,8 @@
 ---
 
 import { supabase } from "../../lib/supabase.js";
-import Buttons from "../Buttons.astro";
-import NotificationTable from "../pageHome/NotificationTable.astro";
+import NotificationTable from "./NotificationTable.astro";
+import Buttons from "../../componets/Buttons.astro";
 
 // fetch the latest 7 announcements
 const { data: notifications, error } = await supabase

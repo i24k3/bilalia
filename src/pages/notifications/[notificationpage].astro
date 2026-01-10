@@ -2,7 +2,7 @@
 export const prerender = false;
 
 import { supabase } from "../../lib/supabase.js";
-import NotificationCard from "../../componets/pageNotification/NotificationCard.astro";
+import Card from "../../componets/Card.astro";
 import BaseLayout from "../../layout/BaseLayout.astro";
 import Pagination from "../../componets/Pagination.astro";
 
@@ -44,7 +44,7 @@ const pageData = {
 
             <div class="grid gap-8 mt-12 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 {notifications && notifications.length > 0
-                ? notifications.map((n) => <NotificationCard notification={n} path="notification"/>)
+                ? notifications.map((n) => <Card notification={n} path="notification"/>)
                 : <p class="text-gray-500 mt-12 text-lg bg-red-300 ">Notifications not loaded.</p>}
             </div>
 
