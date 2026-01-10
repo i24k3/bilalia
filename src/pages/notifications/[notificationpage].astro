@@ -1,7 +1,10 @@
 ---
+export const prerender = false;
+
 import { supabase } from "../../lib/supabase.js";
 import NotificationCard from "../../componets/pageNotification/NotificationCard.astro";
 import BaseLayout from "../../layout/BaseLayout.astro";
+import Pagination from "../../componets/Pagination.astro";
 
 
 const itemsPerPage = 3;
@@ -14,10 +17,7 @@ const { count } = await supabase
 .from("notifications")
 .select("*", { count: "exact", head: true });
 
-// Calculate total pages
 const totalPages = Math.ceil(count / itemsPerPage);
-
-// Calculate range for current page
 const start = (page - 1) * itemsPerPage;
 const end = start + itemsPerPage - 1;
 
@@ -42,42 +42,14 @@ const pageData = {
             <h1 class="text-5xl md:text-6xl font-bold">{ pageData.heading}</h1>
             <p class="text-xl text-gray-600 mt-4">{pageData.subHeading}</p>
 
-            <!-- Pagination -->
-            <div class="flex justify-center mt-12 gap-2 flex-wrap md:hidden">
-                {Array.from({ length: totalPages }, (_, i) => {
-                const pageNumber = i + 1;
-                return (
-                <a
-                    class={`px-4 py-2 rounded hover:bg-gray-300 ${pageNumber === page ? "bg-gray-400" : "bg-gray-200"}`}
-                    href={`/notifications/${pageNumber}`}
-                    >
-                    {pageNumber}
-                </a>
-                    );
-                    })}
-            </div>
-
-
             <div class="grid gap-8 mt-12 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 {notifications && notifications.length > 0
                 ? notifications.map((n) => <NotificationCard notification={n} path="notification"/>)
-                : <p class="text-gray-500 mt-12 text-lg ">No notifications found.</p>}
+                : <p class="text-gray-500 mt-12 text-lg bg-red-300 ">Notifications not loaded.</p>}
             </div>
 
             <!-- Pagination -->
-            <div class="flex justify-center mt-12 gap-2 flex-wrap">
-                {Array.from({ length: totalPages }, (_, i) => {
-                const pageNumber = i + 1;
-                return (
-                <a
-                    class={`px-4 py-2 rounded hover:bg-gray-300 ${pageNumber === page ? "bg-gray-400" : "bg-gray-200"}`}
-                    href={`/notifications/${pageNumber}`}
-                    >
-                    {pageNumber}
-                </a>
-                    );
-                    })}
-            </div>
+             <Pagination totalPages={totalPages} currentPage={page} baseUrl="/notifications" />
 
         </div>
 

@@ -1,5 +1,6 @@
 
 ---
+export const prerender = false;
 import { supabase } from "../../lib/supabase.js";
 import NotificationCard from "../../componets/pageNotification/NotificationCard.astro";
 import BaseLayout from "../../layout/BaseLayout.astro";
@@ -44,23 +45,6 @@ const pageData = {
       <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900">{ pageData.heading }</h1>
       <p class="mt-4 text-lg md:text-xl text-gray-500 max-w-xl mx-auto">{ pageData.subHeading }</p>
 
-      <!-- Pagination -->
-      <div class="flex justify-center mt-16 gap-3 flex-wrap md:hidden">
-        {Array.from({ length: totalPages }, (_, i) => {
-          const pageNumber = i + 1;
-          const isActive = pageNumber === eventsPage;
-          return (
-            <a
-              class={`px-5 py-2 rounded-xl text-sm font-medium transition-all duration-200 
-                ${isActive ? "bg-gray-900 text-white shadow-lg" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
-              href={`/events/${pageNumber}`}
-            >
-              {pageNumber}
-            </a>
-          );
-        })}
-      </div>
-
       <!-- Events Grid -->
       <div class="grid gap-10 mt-16 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {events && events.length > 0
@@ -70,7 +54,7 @@ const pageData = {
                 path="event"
               />
             ))
-          : <p class="text-gray-400 mt-12 text-lg">No Events found.</p>}
+          : <p class="text-gray-400 mt-12 text-lg">Subhanallah! Events Not Loaded.</p>}
       </div>
 
       <!-- Pagination -->
