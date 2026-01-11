@@ -98,9 +98,14 @@ Each file represents a URL and is responsible only for:
 - applying layouts
 
 Dynamic routes use Astro’s file-based routing:
-- `[courseid].astro`
-- `[eventid].astro`
-- `[notificationid].astro`
+
+- `[slug].astro`
+- `[eventpage].astro`
+- `[coursepage].astro`
+- `[audiopage].astro`
+- `[videopage].astro`
+> the slug is used as the title for url i.e instead of using `notification/123` a better approach of `notification/academic-session-2026`
+Furthermore the `*page].astro` files are used for listing down paginated list of elements.
 
 ---
 
