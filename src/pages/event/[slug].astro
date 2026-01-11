@@ -1,153 +1,46 @@
-
 ---
-export const prerender = false;
 
 import BaseLayout from "../../layout/BaseLayout.astro";
 import NotFound from "../../componets/NotFound.astro";
-import ClosingNote from "../../componets/ClosingNote.astro";
+import ReadContent from "../../componets/ReadContents.astro";
 
 import { supabase } from "../../lib/supabase.js";
 import DOMPurify from "isomorphic-dompurify";
 
 const { slug } = Astro.params;
 
+const { data: event, error } = await supabase
+  .from("events")
+  .select("*")
+  .eq("url_slug", slug)
+  .single();
 
 const button404 = [
   { href: "/", text: "Goto Home", type: "primary" },
-  { href: "/events/1", text: "Explore Event's", type: "tertiary" },
+  { href: "/events/1", text: "Explore Events", type: "tertiary" },
 ];
 
+if (error) console.error(error);
 
-
-const { data: event, error } = await supabase
-.from('events')
-.select('*')
-.eq('url_slug', slug)
-.single();
-
-if (error) console.error("Supabase fetch error:", error);
-
-const formattedDate = event
-? new Date(event.date_onsite).toLocaleDateString("en-GB", {
-day: "numeric",
-month: "long",
-year: "numeric",
-})
-: null;
-
-// Sanitize HTML fields
+const formattedDate = event ? new Date(event.date_onsite).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : null;
 const safeOpening = event?.opening ? DOMPurify.sanitize(event.opening) : "";
 const safeBody = event?.body ? DOMPurify.sanitize(event.body) : "";
 const images = event?.event_image_url || [];
 ---
 <BaseLayout>
-
-    {!event ? (
-        <NotFound buttons={button404} />
-    ) : (
-    <div class="min-h-screen bg-gray-50">
-        <div class="container mx-auto px-4 sm:px-6 pt-20 sm:pt-28 pb-12 sm:pb-16 max-w-6xl">
-            <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-200">
-
-                {/* HEADER */}
-                <div class="px-6 sm:px-12 pt-12 sm:pt-16 pb-10 sm:pb-12 bg-white border-b border-gray-200">
-                    <a
-                            href="/events/1"
-                            class="inline-flex items-center gap-3 text-gray-500 hover:text-black font-medium text-base sm:text-lg mb-8 sm:mb-10 transition group"
-                            >
-                            ← All Events
-                    </a>
-
-                        {/* Category Badge */}
-                        {event.category && (
-                        <span class="px-5 py-2 bg-gray-100 text-gray-800 rounded-full text-xs sm:text-sm font-semibold tracking-wider uppercase border border-gray-200">
-                            {event.category}
-                        </span>
-                        )}
-
-                        {/* Title */}
-                        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-black leading-tight mt-4">
-                            {event.title}
-                        </h1>
-
-                        {/* Meta */}
-                        <div class="flex items-center gap-6 mt-6 text-gray-500 text-base sm:text-lg">
-                            <div class="flex items-center gap-3">
-                                <span class="font-medium">{formattedDate}</span>
-                            </div>
-                        </div>
-                </div>
-
-                {/* OPENING TEXT */}
-                {safeOpening && (
-                <div class="px-6 sm:px-12 py-8 sm:py-12 max-w-4xl mx-auto">
-                    <p class="text-lg sm:text-xl leading-relaxed text-gray-800 text-center">
-                    {safeOpening}
-                    </p>
-                </div>
-                )}
-
-                {/* IMAGE GRID */}
-                {/* IMAGE GRID */}
-                {images.length > 0 && (
-                <div class="px-6 sm:px-12 py-8 sm:py-12">
-                    <div class="grid grid-cols-1 gap-6">
-                        {/* First Image - Featured */}
-                        <img
-                                src={images[0]}
-                                alt={event.title}
-                                class="w-full h-96 md:h-[500px] object-cover rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300"
-                                />
-
-                                {/* Remaining Images - Hidden by default */}
-                                <div id="extraImages" class="hidden grid grid-cols-1 gap-6 mt-6">
-                                    {images.slice(1).map((img) => (
-                                    <img
-                                    src={img}
-                                    alt={event.title}
-                                    class="w-full h-80 md:h-96 object-cover rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300"
-                                    />
-                                    ))}
-                                </div>
-
-                                {/* Load More Button */}
-                                {images.length > 1 && (
-                                <button
-                                    class="mt-6 mx-auto block px-6 py-3 bg-gray-900 text-white rounded-full font-medium hover:bg-gray-800 transition-colors duration-200"
-                                    onclick="document.getElementById('extraImages').classList.remove('hidden'); this.style.display='none'"
-                                    >
-                                    Load More
-                                </button>
-                                    )}
-                    </div>
-                </div>
-                )}
-
-                {/* BODY TEXT */}
-                {safeBody && (
-                <div class="px-6 sm:px-12 pb-16 sm:pb-20 pt-8 sm:pt-10 max-w-4xl mx-auto space-y-8 sm:space-y-12">
-                    <section>
-                        <h2 class="text-3xl sm:text-4xl font-bold text-black mb-6 border-l-8 border-emerald-600 pl-4 sm:pl-6">
-                            Details
-                        </h2>
-                        <div
-                            class="prose prose-lg max-w-none text-gray-800 leading-loose text-justify space-y-6 text-base sm:text-lg"
-                            set:html={safeBody}
-                            ></div>
-                    </section>
-                </div>
-                )}
-
-                {/* FOOTER */}
-                <div class="text-center pt-8 pb-12 sm:pb-16">
-                    <p class="text-gray-500 text-xs sm:text-sm tracking-widest uppercase">
-                    Darul Uloom Bilaliya • Established 1991
-                    </p>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    )}
+  {!event ? (
+    <NotFound buttons={button404} />
+  ) : (
+    <ReadContent
+      title={event.title}
+      category={event.category}
+      date={formattedDate}
+      opening={safeOpening}
+      body={safeBody}
+      images={images}
+      backHref="/events/1"
+      backText="All Events"
+    />
+  )}
 </BaseLayout>
 

@@ -9,7 +9,7 @@ import Button from "../../componets/Button.astro";
 const { data: notifications, error } = await supabase
   .from('notifications') // table name matches
   .select('search_id, title, date_onsite, url_slug')
-  .order('date_onsite', { ascending: false })
+  .order('search_id', { ascending: false })
   .limit(7);
 
 // Server-side logging

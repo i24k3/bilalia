@@ -1,8 +1,8 @@
 ---
-import Button from "./../../componets/Button.astro";
+import Button from "../../componets/Button.astro";
 import ClosingNote from "../../componets/ClosingNote.astro";
 
-const gallery = {
+const {title, images, link}= {
   title: "Campus Life",
   images: [
     { src: "https://images.pexels.com/photos/1275393/pexels-photo-1275393.jpeg", alt: "Main Masjid", caption: "Peaceful morning at the Masjid" },
@@ -17,45 +17,54 @@ const gallery = {
 ---
 
 <section class="py-16 bg-gray-50">
-  <div class="container mx-auto px-6 max-w-4xl">
+  <div class="container mx-auto px-4 sm:px-6 max-w-6xl">
 
-    <!-- Section Title -->
-    <h2 class="text-4xl sm:text-5xl font-black text-center mb-12 text-gray-900 leading-snug">
-      {gallery.title}
+    {/* Title */}
+    <h2 class="text-4xl sm:text-5xl font-black text-center mb-12 text-gray-900">
+      {title}
     </h2>
 
-    <!-- Mobile-friendly reflective gallery -->
-    <div class="flex flex-col gap-8">
-      {gallery.images.map(image => (
-        <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
-          <img 
-            src={image.src} 
-            alt={image.alt} 
-            class="w-full h-64 sm:h-72 md:h-80 object-cover rounded-t-2xl" 
-            loading="lazy" 
-          />
+    {/* EVENT-STYLE IMAGE CAROUSEL */}
+    <div class="flex gap-8 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+      {images.map((image, index) => (
+        <div class="flex-shrink-0 w-full snap-center">
+
+          {/* Image (same size as event page) */}
+          <div class="rounded-2xl overflow-hidden shadow-xl border border-gray-200">
+            <img
+              src={image.src}
+              alt={image.alt}
+              loading="lazy"
+              class="w-full h-64 sm:h-80 md:h-96 lg:h-[560px] object-cover"
+            />
+          </div>
+
+          {/* Caption under image */}
           {image.caption && (
-            <p class="text-center text-gray-600 text-sm md:text-base p-4">
+            <p class="mt-4 text-center text-gray-600 text-base sm:text-lg max-w-3xl mx-auto">
               {image.caption}
             </p>
           )}
+
         </div>
       ))}
     </div>
 
-    <!-- View All Button -->
-    <div class="text-center mt-12 md:mb-33">
-      <Button 
-        href={gallery.link.href} 
-        text={gallery.link.text} 
-        type="outlined" 
-        class="text-gray-700 border-gray-300 hover:bg-gray-100 focus:ring-gray-300"
-      />
+    {/* View Gallery Button */}
+    {link && (
+      <div class="text-center mt-12">
+        <Button
+          href={link.href}
+          text={link.text}
+          type="outlined"
+          class="text-gray-700 border-gray-300 hover:bg-gray-100 focus:ring-gray-300"
+        />
+      </div>
+    )}
+
+    <div class="mt-16">
+      <ClosingNote />
     </div>
-
-    <ClosingNote/>
-
-
 
   </div>
 </section>
