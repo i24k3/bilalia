@@ -6,12 +6,12 @@ import BaseLayout from "../../layout/BaseLayout.astro";
 import { supabase } from "../../lib/supabase.js";
 import DOMPurify from "isomorphic-dompurify";
 
-const { eventid } = Astro.params;
+const { slug } = Astro.params;
 
 const { data: event, error } = await supabase
 .from('events')
 .select('*')
-.eq('search_id', eventid)
+.eq('url_slug', slug)
 .single();
 
 if (error) console.error("Supabase fetch error:", error);

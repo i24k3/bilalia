@@ -13,7 +13,8 @@ const date = notification.date_onsite
 ? new Date(notification.date_onsite).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
 : "Date not specified";
 const category = notification.category || "General";
-const link = `/${path}/${notification.search_id}`;
+const link = `/${path}/${notification.url_slug}`;
+// const link = `/${path}/${notification.search_id}`;
 const featured = notification.featured;
 ---
 

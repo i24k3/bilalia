@@ -19,7 +19,9 @@ const { notifications } = Astro.props;
 
             {/* Title */}
             <td class="py-4 px-4 text-base font-bold text-gray-900">
-              <a href={`/notification/${n.search_id}`} class="hover:underline">{n.title}</a>
+            <a href={`/notification/${n.url_slug}`} class="hover:underline">
+              {n.title}
+            </a>
             </td>
 
             {/* Date + Action */}
@@ -31,7 +33,7 @@ const { notifications } = Astro.props;
                 <time class="text-sm font-semibold text-green-700 sm:mr-4">{new Date(n.date_onsite).toLocaleDateString()}</time>
 
                 {/* Button */}
-                <Buttons href={`/notification/${n.search_id}`} text="Read" type="outlined"/>
+                <Buttons href={`/notification/${n.url_slug}`} text="Read" type="outlined"/>
               </div>
             </td>
 

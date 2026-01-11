@@ -5,12 +5,12 @@ import BaseLayout from "../../layout/BaseLayout.astro";
 import { supabase } from "../../lib/supabase.js";
 import DOMPurify from "isomorphic-dompurify";
 
-const { notificationid } = Astro.params;
+const { slug } = Astro.params;
 
 const { data: post, error } = await supabase
   .from('notifications')
   .select('*')
-  .eq('search_id', notificationid)
+  .eq('url_slug', slug)
   .single();
 
 if (error) console.error("Supabase fetch error:", error);
