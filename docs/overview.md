@@ -61,7 +61,7 @@ These components are used across multiple routes.
 Examples:
 - `Header.astro` – site-wide header
 - `Footer.astro` – site-wide footer
-- `Buttons.astro` – configurable button component
+- `Button.astro` – configurable button component
 - `Pagination.astro` – used in events, notifications, and lectures
 - `NavLinks.astro` – shared navigation links for header and footer
 

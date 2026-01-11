@@ -1,0 +1,41 @@
+
+I am building an Astro + TailwindCSS website with a **calm, Islamic, spiritually reflective design**.
+
+**Design principles to strictly follow:**
+
+* Minimal, peaceful, respectful (no flashy or loud styles)
+* Clear readability hierarchy
+* Inspired by Islamic adab, dhikr, Qur’anic reflection
+* Soft neutrals (gray, off-white), subtle borders, gentle spacing
+* Typography and spacing should invite calm and contemplation
+
+**Hierarchy pattern (very important):**
+
+1. Small, subtle label (optional)
+2. Main Arabic dhikr / Qur’anic phrase (primary focus)
+3. Visual pause (divider or spacing)
+4. English translation or reflection
+5. Source (Qur’an / Hadith) in lighter, secondary text
+
+**Tech constraints:**
+
+* Astro component
+* TailwindCSS only
+* No animations unless extremely subtle
+* Accessibility and readability first
+
+**Your task:**
+
+* Style **only this single component**
+* Improve layout, spacing, and hierarchy
+* Keep code clean and reusable
+* Do NOT redesign the whole site
+
+**Component to style:**
+
+```astro
+// paste component here
+```
+
+If Islamic text is needed, use **authentic, respectful wording** and include translations and sources when appropriate.
+

@@ -1,76 +1,19 @@
 ---
-import Buttons from "../componets/Buttons.astro";
 import BaseLayout from "../layout/BaseLayout.astro";
+import NotFound from "../componets/NotFound.astro";
 
-const data = {
-title: "404",
-quote: "سُبْحَانَ اللَّهِ — Even when paths are lost, Allah never is.",
-translation:
-"This page could not be found. Let this moment be a reminder: remember Allah, and hearts find peace.",
-source: "“Verily, in the remembrance of Allah do hearts find rest.” (Qur’an 13:28)",
+const myData = {
+  quote: "لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ — Never despair of Allah’s mercy.",
+  translation: "This page does not exist. Pause and remember Allah, the Most Merciful.",
+  source: "Qur’an 39:53",
 };
 
-const buttons = [
-{ href: "/", text: "Go Home", type: "primary" },
-{ href: "/academics", text: "Explore Academics", type: "tertiary" },
+const myButtons = [
+  { href: "/", text: "Home", type: "primary" },
+  { href: "/lectures/video/1", text: "View Lectures", type: "tertiary" },
 ];
 ---
 
 <BaseLayout>
-    <div class="min-h-screen bg-gray-50 pt-24 pb-16 flex items-center justify-center">
-        <div class="container mx-auto px-4 max-w-3xl">
-            <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-
-                {/* CONTENT */}
-                <div class="px-8 sm:px-14 py-14 sm:py-20 text-center">
-
-                    {/* 404 — subtle */}
-                    <span class="block text-sm tracking-widest text-gray-400 mb-6">
-                        ERROR 404
-                    </span>
-
-                    {/* Dhikr / Quote */}
-                    <h1 class="text-3xl sm:text-4xl text-gray-900 leading-snug mb-4">
-                        {data.quote}
-                    </h1>
-
-                    {/* Divider */}
-                    <div class="w-16 h-px bg-gray-300 mx-auto my-8" />
-
-                    {/* Translation */}
-                    <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-6">
-                    {data.translation}
-                    </p>
-
-                    {/* Source */}
-                    {data.source && (
-                    <p class="text-sm text-gray-400 italic">
-                    {data.source}
-                    </p>
-                    )}
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {/* BUTTONS */}
-        <div class="flex flex-col sm:flex-row justify-center gap-6 px-6 sm:px-12 pb-12 sm:pb-16">
-            {buttons.map((btn) => (
-            <Buttons href={btn.href} text={btn.text} type={btn.type} />
-            ))}
-        </div>
-
-        {/* FOOTER */}
-        <div class="text-center px-6 sm:px-12 pb-12 sm:pb-16 border-gray-200 text-gray-500 text-xs sm:text-sm tracking-widest uppercase">
-            Darul Uloom Bilaliya • Established 1991
-        </div>
-
-    </div>
-
-    </div>
-
-    </div>
-
+    <NotFound data={myData} buttons={myButtons} />
 </BaseLayout>
-

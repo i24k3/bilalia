@@ -1,0 +1,77 @@
+---
+import Button from "../componets/Button.astro";
+
+// Props
+const { data, buttons = [] } = Astro.props;
+
+// Default data if none passed
+const defaultData = {
+  title: "404",
+  quote: "سُبْحَانَ اللَّهِ — Even when paths are lost, Allah never is.",
+  translation:
+    "This page could not be found. Let this moment be a reminder: remember Allah, and hearts find peace.",
+  source: "“Verily, in the remembrance of Allah do hearts find rest.” (Qur’an 13:28)",
+};
+
+const pageData = data || defaultData;
+---
+
+<div class="min-h-screen bg-gray-50 pt-24 pb-16 flex flex-col items-center justify-center">
+
+  <div class="container mx-auto px-4 max-w-3xl">
+    <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+
+      {/* CONTENT */}
+      <div class="px-8 sm:px-14 py-14 sm:py-20 text-center">
+
+        {/* 404 — subtle */}
+        <span class="block text-sm tracking-widest text-gray-400 mb-6">
+          ERROR 404
+        </span>
+
+        {/* Dhikr / Quote */}
+        <h1 class="text-3xl sm:text-4xl text-gray-900 leading-snug mb-4">
+          {pageData.quote}
+        </h1>
+
+        {/* Divider */}
+        <div class="w-16 h-px bg-gray-300 mx-auto my-8" />
+
+        {/* Translation */}
+        <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-6">
+          {pageData.translation}
+        </p>
+
+        {/* Source */}
+        {pageData.source && (
+          <p class="text-md text-gray-700 italic">
+            {pageData.source}
+          </p>
+        )}
+
+      </div>
+
+    </div>
+  </div>
+
+  {/* BUTTONS */}
+  {buttons.length > 0 && (
+    <div class="flex flex-col sm:flex-row justify-center gap-6 px-6 sm:px-12 mt-10">
+      {buttons.map((btn) => (
+        <Button 
+          href={btn.href} 
+          text={btn.text} 
+          type={btn.type || "primary"} 
+          target={btn.target || "_self"} 
+        />
+      ))}
+    </div>
+  )}
+
+  {/* FOOTER */}
+  <div class="text-center px-6 sm:px-12 mt-12 border-t border-gray-200 pt-6 text-gray-500 text-xs sm:text-sm tracking-widest uppercase">
+    Darul Uloom Bilaliya • Established 1991
+  </div>
+
+</div>
+

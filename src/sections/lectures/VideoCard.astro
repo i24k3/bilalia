@@ -1,5 +1,6 @@
 ---
 const { lecture } = Astro.props;
+import Button from "../../componets/Button.astro";
 
 
 /*
@@ -48,6 +49,10 @@ const getEmbedUrl = (url) => {
 
 const embedUrl = getEmbedUrl(lecture.media_url);
 ---
+
+
+
+
 <article class="bg-white rounded-3xl border border-gray-200 overflow-hidden">
 
   {/* VIDEO */}
@@ -106,14 +111,7 @@ const embedUrl = getEmbedUrl(lecture.media_url);
 
     {/* ACTIONS */}
     <div class="pt-4 border-t border-gray-200 flex flex-wrap items-center gap-4">
-      <a
-        href={lecture.media_url}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center gap-3 px-6 py-3 bg-black text-white text-sm sm:text-base font-semibold rounded-full hover:bg-black/80 transition"
-      >
-        Watch on YouTube
-      </a>
+        <Button href={lecture.media_url} text="Watch on YouTube" target="_blank" type="secondary" />
     </div>
 
   </div>

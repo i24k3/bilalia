@@ -1,6 +1,6 @@
 
 ---
-import Buttons from "../../componets/Buttons.astro";
+import Button from "../../componets/Button.astro";
 
 const data = {
     title: "Welcome to Darul Uloom Bilaliya",
@@ -49,7 +49,7 @@ const buttons = [
 
     <div class="flex flex-col sm:flex-row gap-6 justify-center mt-8">
         {buttons.map((btn) => (
-    <Buttons
+    <Button
       href={btn.href}
       text={btn.text}
       type={btn.type}

@@ -1,0 +1,110 @@
+---
+const {
+  href,
+  text,
+  type = "primary", // primary | secondary | secondary-long | tertiary | minimal | outlined | ghost
+  target = "_self"
+} = Astro.props;
+
+const base = `
+  inline-flex items-center justify-center
+  font-semibold tracking-wide
+  rounded-lg transition-all duration-200
+  focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2
+  relative overflow-hidden
+  select-none
+`;
+
+let classes;
+
+switch (type) {
+  // MAIN ACTION
+  case "primary":
+    classes = `
+      ${base}
+      px-10 py-3
+      bg-emerald-800 text-gray-50
+      shadow-sm
+      hover:bg-emerald-700 hover:shadow-md
+      hover:text-white
+      active:bg-emerald-700
+    `;
+    break;
+
+  // SECONDARY / LESS EMPHASIS
+  case "secondary":
+    classes = `
+      ${base}
+      px-8 py-2
+      bg-gray-800 text-white
+      shadow-sm
+      hover:bg-gray-700 hover:shadow-md
+      active:bg-gray-900
+    `;
+    break;
+
+  // FULL-WIDTH SECONDARY
+  case "secondary-long":
+    classes = `
+      ${base}
+      block w-full py-3 text-lg
+      bg-gray-800 text-white
+      shadow-sm
+      hover:bg-gray-700 hover:shadow-md
+      active:bg-gray-600
+    `;
+    break;
+
+  // WHITE BUTTON / CARD-LIKE
+  case "tertiary":
+    classes = `
+      ${base}
+      px-8 py-3
+      bg-white text-gray-800
+      border border-gray-200
+      shadow-sm
+      hover:bg-gray-300 hover:border-gray-400
+      hover:text-gray-900
+    `;
+    break;
+
+  // TEXT ONLY LINK STYLE
+  case "minimal":
+    classes = `
+      ${base}
+      px-6 py-2
+      bg-transparent text-emerald-600
+      hover:text-emerald-500 hover:underline
+    `;
+    break;
+
+  // OUTLINED BUTTON
+  case "outlined":
+    classes = `
+      ${base}
+      px-8 py-3
+      bg-transparent text-gray-900 border-2 border-gray-800
+      hover:bg-gray-200 hover:border-gray-700 hover:text-gray-700
+    `;
+    break;
+
+  // GHOST BUTTON
+  case "ghost":
+    classes = `
+      ${base}
+      px-6 py-2
+      bg-transparent text-gray-800
+      hover:bg-gray-50 hover:text-emerald-600
+      hover:underline
+    `;
+    break;
+
+  default:
+    classes = `${base} px-6 py-3 text-gray-800 bg-gray-100`;
+}
+---
+
+<a href={href} target={target} class={classes}>
+  {text}
+</a>
+

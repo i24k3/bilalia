@@ -13,7 +13,7 @@ const { totalPages = 1, currentPage = 1, baseUrl = '/' } = Astro.props;
     const isCurrent = pageNumber === currentPage;
     return (
       <a
-        class={`px-4 py-2 rounded hover:bg-gray-300 ${isCurrent ? "bg-black text-white" : "bg-gray-200 text-black"}`}
+        class={`px-4 py-2 rounded hover:bg-gray-300 ${isCurrent ? "bg-black text-white hover:bg-gray-700" : "bg-gray-200 text-black"}`}
         href={`${baseUrl}/${pageNumber}`}
       >
         {pageNumber}

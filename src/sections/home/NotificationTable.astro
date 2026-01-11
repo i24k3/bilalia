@@ -1,52 +1,37 @@
 ---
-import Buttons from "../../componets/Buttons.astro";
+import Button from "../../componets/Button.astro"
 const { notifications } = Astro.props;
 ---
 
-<div class="bg-white rounded-3xl border border-gray-200 overflow-hidden">
-  <table class="w-full table-auto">
-    <thead class="bg-gray-100">
-      <tr class="text-left font-semibold text-gray-800">
-        <th class="py-5 px-6 text-lg">Notifications</th>
-        <th class="py-5 px-6 w-40 text-right text-lg">Dated</th>
+<table class="w-full text-left border-collapse bg-white rounded-md shadow-sm divide-y divide-gray-200">
+  <thead class="bg-gray-50">
+    <tr>
+      <th class="px-4 py-2 text-gray-400 text-sm uppercase tracking-wider font-medium">
+        Date
+      </th>
+      <th class="px-4 py-2 text-gray-400 text-sm uppercase tracking-wider font-medium">
+        Title
+      </th>
+      <th class="px-4 py-2 text-gray-400 text-sm uppercase tracking-wider font-medium ">
+        Link
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {notifications?.map((item) => (
+      <tr class="hover:bg-gray-50 transition-colors duration-150">
+        <td class="px-4 py-3 text-gray-600 text-sm md:text-base">
+          {new Date(item.date_onsite).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" })}
+        </td>
+        <td class="px-4 py-3 text-gray-800 font-medium text-sm md:text-base">
+          {item.title}
+        </td>
+        <td class="px-4 py-3 text-gray-500 text-sm md:text-base">
+
+        <Button href={`/notification/${item.url_slug}`} text="View" type="secondary" />
+        </td>
       </tr>
-    </thead>
-
-    <tbody>
-      {notifications && notifications.length > 0 ? (
-        notifications.map((n) => (
-          <tr class="group border-b border-gray-200 hover:bg-gray-100 cursor-pointer">
-
-            {/* Title */}
-            <td class="py-4 px-4 text-base font-bold text-gray-900">
-            <a href={`/notification/${n.url_slug}`} class="hover:underline">
-              {n.title}
-            </a>
-            </td>
-
-            {/* Date + Action */}
-            <td class="py-4 px-4 text-right">
-              {/* Flex container for responsive layout */}
-              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-2 sm:gap-4">
-
-                {/* Date */}
-                <time class="text-sm font-semibold text-green-700 sm:mr-4">{new Date(n.date_onsite).toLocaleDateString()}</time>
-
-                {/* Button */}
-                <Buttons href={`/notification/${n.url_slug}`} text="Read" type="outlined"/>
-              </div>
-            </td>
-
-          </tr>
-        ))
-      ) : (
-        <tr>
-          <td colspan="2" class="text-center py-6 text-gray-400">
-            Notifications not loaded
-          </td>
-        </tr>
-      )}
-    </tbody>
-  </table>
-</div>
+    ))}
+  </tbody>
+</table>
 

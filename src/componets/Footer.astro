@@ -2,105 +2,127 @@
 import Navlinks from "./Navlinks.astro";
 
 const institution = {
-name: "Darul Uloom Bilaliya",
-address: "Ahmada Kadal, Lal Bazar<br>Srinagar, Jammu & Kashmir",
+  name: "Darul Uloom Bilaliya",
+  address: "Ahmada Kadal, Lal Bazar<br>Srinagar, Jammu & Kashmir",
 };
 
 const quickLinks = [
-{ href: "/about", text: "About Us" },
-{ href: "/admissions", text: "Admissions" },
-{ href: "/academics", text: "Academics" },
-{ href: "/notifications/1", text: "Notifications" },
-{ href: "/contact", text: "Contact" },
+  { href: "/about", text: "About Us" },
+  { href: "/admissions", text: "Admissions" },
+  { href: "/academics", text: "Academics" },
+  { href: "/notifications/1", text: "Notifications" },
+  { href: "/contact", text: "Contact" },
 ];
 
-
 const connectLinks = [
-{ href: "/lectures/audio/1", text: "Audio Lectures" },
-{ href: "/lectures/video/1", text: "Video Lectrues" },
-{ href: "/events/1", text: "Gallery" },
-{ href: "/resources/1", text: "Resources" },
-{ href: "/courses/1", text: "Courses" },
-{ href: "/support", text: "Support Us" },
+  { href: "/lectures/audio/1", text: "Audio Lectures" },
+  { href: "/lectures/video/1", text: "Video Lectures" },
+  { href: "/events/1", text: "Events" },
+  { href: "/resources/1", text: "Resources" },
+  { href: "/courses/1", text: "Courses" },
+  { href: "/support", text: "Support Us" },
 ];
 
 const contact = {
-phone: "+91 99999 99999",
-email: "info@darululoombilaliya.org",
+  phone: "+91 99999 99999",
+  email: "info@darululoombilaliya.org",
 };
 ---
 
-<footer class="relative bg-white border-t border-gray-200 overflow-hidden">
+<footer class="relative bg-gray-50 border-t border-gray-200 overflow-hidden">
 
-    <!-- Soft gradient background -->
-    <div class="absolute inset-0 bg-gradient-to-br from-black/5 via-white/60 to-gray-200/30 pointer-events-none"></div>
+  <!-- Subtle background texture -->
+  <div class="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-gray-100 pointer-events-none"></div>
 
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-12">
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
 
-            <!-- Institution Info -->
-            <div class="lg:col-span-4 space-y-4">
-                <h3 class="text-3xl font-bold tracking-tight text-black">
-                    <a href="/">{institution.name}</a>
-                </h3>
-                <p class="text-gray-500 text-sm leading-relaxed"></p>
-            </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-12">
 
-            <!-- Quick Links -->
-            <div class="lg:col-span-2 lg:col-start-5">
-                <h4 class="text-lg font-semibold text-black mb-4 tracking-wide">Quick Links</h4>
-                <ul class="space-y-3 text-sm">
-                    {quickLinks.map(link => (
-                    <li>
-                        <Navlinks href={link.href} text={link.text}/>
-                    </li>
-                    ))}
-                </ul>
-            </div>
+      <!-- Institution -->
+      <div class="lg:col-span-4 space-y-6">
+        <h3 class="text-2xl font-semibold tracking-tight text-gray-900">
+          <a href="/">{institution.name}</a>
+        </h3>
 
-            <!-- Connect With Us -->
-            <div class="lg:col-span-3">
-                <h4 class="text-lg font-semibold text-black mb-4 tracking-wide">Connect With Us</h4>
-                <ul class="space-y-3 text-sm">
-                    {connectLinks.map(link => (
-                    <li>
-                        <Navlinks href={link.href} text={link.text}/>
-                    </li>
-                    ))}
-                </ul>
-            </div>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          An institution dedicated to sacred knowledge, character, and service
+          to the Ummah — seeking the pleasure of Allah above all.
+        </p>
 
-            <!-- Contact & Newsletter -->
-            <div class="lg:col-span-3">
-                <h4 class="text-lg font-semibold text-black mb-4 tracking-wide">Contact Info</h4>
-                <div class="space-y-4 text-gray-800 text-sm mb-8">
+        <p class="text-xs text-gray-500 leading-relaxed" set:html={institution.address} />
+      </div>
 
-                    <p class="flex items-center gap-3">
-                    <svg class="w-5 h-5 text-amber-700 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-                    </svg>
-                    {contact.phone}
-                    </p>
+      <!-- Quick Links -->
+      <div class="lg:col-span-2 lg:col-start-5">
+        <h4 class="text-xs tracking-widest uppercase text-gray-500 mb-5">
+          Quick Links
+        </h4>
+        <ul class="space-y-3 text-sm">
+          {quickLinks.map(link => (
+            <li>
+              <Navlinks href={link.href} text={link.text} />
+            </li>
+          ))}
+        </ul>
+      </div>
 
-                    <p class="flex items-center gap-3">
-                    <svg class="w-5 h-5 text-amber-700 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
-                    </svg>
-                    {contact.email}
-                    </p>
+      <!-- Connect -->
+      <div class="lg:col-span-3">
+        <h4 class="text-xs tracking-widest uppercase text-gray-500 mb-5">
+          Learn & Connect
+        </h4>
+        <ul class="space-y-3 text-sm">
+          {connectLinks.map(link => (
+            <li>
+              <Navlinks href={link.href} text={link.text} />
+            </li>
+          ))}
+        </ul>
+      </div>
 
-                </div>
-            </div>
+      <!-- Contact -->
+      <div class="lg:col-span-3">
+        <h4 class="text-xs tracking-widest uppercase text-gray-500 mb-5">
+          Contact
+        </h4>
 
+        <div class="space-y-4 text-sm text-gray-700">
+          <p class="flex items-center gap-3">
+            <svg class="w-4 h-4 text-gray-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+            </svg>
+            {contact.phone}
+          </p>
+
+          <p class="flex items-center gap-3">
+            <svg class="w-4 h-4 text-gray-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+              <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+            </svg>
+            {contact.email}
+          </p>
         </div>
-
-        <!-- Bottom -->
-        <div class="mt-16 border-t border-gray-200 pt-6 text-center text-gray-500 text-sm space-y-1">
-            <p>© {new Date().getFullYear()} Darul Uloom Bilaliya. All rights reserved.</p>
-            <p class="tracking-wide">Made for the Ummah</p>
-        </div>
+      </div>
 
     </div>
+
+    <!-- Bottom Reflection -->
+    <div class="mt-16 border-t border-gray-200 pt-8 text-center space-y-2">
+
+      <p class="text-sm text-gray-600 italic">
+        “And whatever good you do — Allah knows it well.”
+      </p>
+
+      <p class="text-xs text-gray-500">
+        Qur’an 2:197
+      </p>
+
+      <p class="text-xs tracking-widest uppercase text-gray-400 pt-2">
+        © {new Date().getFullYear()} Darul Uloom Bilaliya
+      </p>
+
+    </div>
+
+  </div>
 </footer>
 

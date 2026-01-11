@@ -3,7 +3,7 @@
 
 import { supabase } from "../../lib/supabase.js";
 import NotificationTable from "./NotificationTable.astro";
-import Buttons from "../../componets/Buttons.astro";
+import Button from "../../componets/Button.astro";
 
 // fetch the latest 7 announcements
 const { data: notifications, error } = await supabase
@@ -14,17 +14,22 @@ const { data: notifications, error } = await supabase
 
 // Server-side logging
 console.log("Supabase error:", error);
+
+
+const data = {
+    sectionTitle : "Latest News & Announcements",
+};
 ---
 <section class="py-28 bg-gray-50">
   <div class="container mx-auto px-6 max-w-6xl">
     <h2 class="text-5xl md:text-6xl font-black text-center mb-16 text-gray-900">
-      Latest News & Announcements
+        { data.sectionTitle }
     </h2>
 
     <NotificationTable notifications={notifications} />
 
     <div class="text-center mt-16">
-        <Buttons href="/notifications/1" text="Read All Notifications" type="tertiary" />
+        <Button href="/notifications/1" text="Read All Notifications" type="outlined" />
     </div>
   </div>
 </section>
