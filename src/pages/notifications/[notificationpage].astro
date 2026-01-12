@@ -2,11 +2,11 @@
 export const prerender = false;
 import { supabase } from "../../lib/supabase.js";
 
-import Card from "../../componets/Card.astro";
+import Card from "../../components/Card.astro";
 import BaseLayout from "../../layout/BaseLayout.astro";
-import Pagination from "../../componets/Pagination.astro";
-import NotFound from "../../componets/NotFound.astro";
-import ClosingNote from "../../componets/ClosingNote.astro";
+import Pagination from "../../components/Pagination.astro";
+import NotFound from "../../components/NotFound.astro";
+import ClosingNote from "../../components/ClosingNote.astro";
 
 const itemsPerPage = 3;
 const page = parseInt(Astro.params.notificationpage) || 1;

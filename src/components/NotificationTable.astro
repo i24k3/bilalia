@@ -1,6 +1,18 @@
 ---
-import Button from "../../componets/Button.astro"
+import Button from "../components/Button.astro"
 const { notifications } = Astro.props;
+
+
+const formattedNotifications = notifications?.map((item) => ({
+  ...item,
+  formattedDate: item.date_onsite
+    ? new Date(item.date_onsite).toLocaleDateString("en-US", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      })
+    : "—",
+}));
 ---
 
 <table class="w-full text-left border-collapse bg-white rounded-md shadow-sm divide-y divide-gray-200">
@@ -18,10 +30,11 @@ const { notifications } = Astro.props;
     </tr>
   </thead>
   <tbody>
-    {notifications?.map((item) => (
+
+    {formattedNotifications?.map((item) => (
       <tr class="hover:bg-gray-50 transition-colors duration-150">
         <td class="px-4 py-3 text-gray-600 text-sm md:text-base">
-          {new Date(item.date_onsite).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" })}
+            {item.formattedDate}
         </td>
         <td class="px-4 py-3 text-gray-800 font-medium text-sm md:text-base">
           {item.title}
@@ -32,6 +45,9 @@ const { notifications } = Astro.props;
         </td>
       </tr>
     ))}
+
+
+
   </tbody>
 </table>
 

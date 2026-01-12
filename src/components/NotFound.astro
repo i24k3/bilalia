@@ -1,5 +1,5 @@
 ---
-import Button from "../componets/Button.astro";
+import Button from "../components/Button.astro";
 
 // Props
 const {
@@ -20,11 +20,12 @@ const defaultData = {
 
 const pageData = data || defaultData;
 
-// Wrapper classes: optional vertical centering
-const wrapperClasses = `
-  bg-gray-50
-  ${centered ? `${minHeight} flex flex-col items-center justify-center` : ""}
-`;
+const wrapperClasses = [
+  "bg-gray-50",
+  centered && minHeight,
+  centered && "flex flex-col items-center justify-center",
+].filter(Boolean).join(" ");
+
 ---
 
 <div class={wrapperClasses}>
@@ -37,7 +38,7 @@ const wrapperClasses = `
           {pageData.title}
         </span>
 
-        <h1 class="text-3xl sm:text-4xl text-gray-900 leading-snug mb-4">
+        <h1 role="alert" class="text-3xl sm:text-4xl text-gray-900 leading-snug mb-4">
           {pageData.quote}
         </h1>
 

@@ -2,9 +2,9 @@
 ---
 import { supabase } from "../../lib/supabase.js";
 
-import NotificationTable from "./NotificationTable.astro";
-import Button from "../../componets/Button.astro";
-import NotFound from "../../componets/NotFound.astro";
+import NotificationTable from "../../components/NotificationTable.astro";
+import Button from "../../components/Button.astro";
+import NotFound from "../../components/NotFound.astro";
 
 
 const staticData = {
@@ -14,12 +14,14 @@ sectionTitle : "Latest News & Announcements",
 
 let notifications = [];
 let fetchError = null;
+const HOME_NOTIFICATION_LIMIT = 7;
+
 
 const { data, error } = await supabase
 .from('notifications') 
 .select('search_id, title, date_onsite, url_slug')
-.order('search_id', { ascending: true})
-.limit(7);
+.order('search_id', { ascending: true}) 
+.limit(HOME_NOTIFICATION_LIMIT);
 
 if (error) {
 fetchError= error;
