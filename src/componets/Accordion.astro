@@ -10,7 +10,7 @@ const { index = 1, title, desc, open = false } = Astro.props;
 ---
 
 <details
-  class="group bg-gray-50 rounded-2xl border border-gray-200 shadow-sm open:shadow-md transition"
+  class="group bg-white rounded-2xl border border-gray-400 shadow-sm open:shadow-md transition"
   {...(open ? { open: true } : {})}
 >
   <summary
@@ -25,7 +25,7 @@ const { index = 1, title, desc, open = false } = Astro.props;
       <!-- Number -->
       <span
         class="
-          flex-shrink-0
+          shrink-0
           w-10 h-10
           rounded-full
           bg-black text-white

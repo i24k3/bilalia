@@ -5,6 +5,8 @@ import { supabase } from "../../lib/supabase.js";
 import Card from "../../componets/Card.astro";
 import BaseLayout from "../../layout/BaseLayout.astro";
 import Pagination from "../../componets/Pagination.astro";
+import NotFound from "../../componets/NotFound.astro";
+import ClosingNote from "../../componets/ClosingNote.astro";
 
 
 const itemsPerPage = 3;
@@ -30,26 +32,50 @@ const { data: notifications } = await supabase
 
 
 const pageData = {
-    heading: "Notifications & Announcements",
-    subHeading: "Stay updated with Darul Uloom bilalia",
+heading: "Notifications & Announcements",
+subHeading: "Stay updated with Darul Uloom bilalia",
+};
+
+const notFoundData= {
+quote: "لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ — Never despair of Allah’s mercy.",
+source: "Qur’an 39:53",
+translation: "Notifications Not Loaded!",
 };
 ---
 
 <BaseLayout>
 
-    <main class="pt-48 pb-16 bg-linear-to-b from-gray-50 to-white min-h-screen">
+    <main class="mt-44 bg-linear-to-b from-gray-50 to-white min-h-screen">
         <div class="max-w-7xl mx-auto px-6 text-center">
             <h1 class="text-5xl md:text-6xl font-bold">{ pageData.heading}</h1>
             <p class="text-xl text-gray-600 mt-4">{pageData.subHeading}</p>
 
+            {notifications && notifications?.length > 0 && (
             <div class="grid gap-8 mt-12 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                {notifications && notifications.length > 0
-                ? notifications.map((n) => <Card notification={n} path="notification"/>)
-                : <p class="text-gray-500 mt-12 text-lg bg-red-300 ">Notifications not loaded.</p>}
+                {notifications.map((n) => (
+                <Card notification={n} path="notification" />
+                ))}
             </div>
+            )}
+
+            {(!notifications || notifications.length === 0) && (
+            <div class="mt-20 flex justify-center">
+                <NotFound
+                data={notFoundData}
+                centered={false}
+                wrapperPadding="py-12"
+                contentPadding="py-8"
+                />
+
+            </div>
+            )}
 
             <!-- Pagination -->
-             <Pagination totalPages={totalPages} currentPage={page} baseUrl="/notifications" />
+            <Pagination totalPages={totalPages} currentPage={page} baseUrl="/notifications" />
+
+            <div class="pt-4 pb-10">
+            <ClosingNote/>
+            <div>
 
         </div>
 
