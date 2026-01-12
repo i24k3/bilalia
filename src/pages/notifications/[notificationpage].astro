@@ -1,84 +1,96 @@
 ---
 export const prerender = false;
-
 import { supabase } from "../../lib/supabase.js";
+
 import Card from "../../componets/Card.astro";
 import BaseLayout from "../../layout/BaseLayout.astro";
 import Pagination from "../../componets/Pagination.astro";
 import NotFound from "../../componets/NotFound.astro";
 import ClosingNote from "../../componets/ClosingNote.astro";
 
-
 const itemsPerPage = 3;
-
-// Get current page from the route param
 const page = parseInt(Astro.params.notificationpage) || 1;
-
-// Fetch total count for pagination
-const { count } = await supabase
-.from("notifications")
-.select("*", { count: "exact", head: true });
-
-const totalPages = Math.ceil(count / itemsPerPage);
 const start = (page - 1) * itemsPerPage;
 const end = start + itemsPerPage - 1;
 
-// Fetch notifications for current page
-const { data: notifications } = await supabase
-.from("notifications")
-.select("*")
-.order("search_id", { ascending: true })
-.range(start, end);
+let notifications = [];
+let totalPages = 0;
+let fetchError = null;
 
 
-const pageData = {
-heading: "Notifications & Announcements",
-subHeading: "Stay updated with Darul Uloom bilalia",
-};
+try {
+  const { data, count, error } = await supabase
+    .from("notifications")
+    .select("*", { count: "exact" })
+    .order("search_id", { ascending: true })
+    .range(start, end);
 
-const notFoundData= {
-quote: "لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ — Never despair of Allah’s mercy.",
-source: "Qur’an 39:53",
-translation: "Notifications Not Loaded!",
+  if (error) throw error;
+
+  notifications = data ?? [];
+  totalPages = count ? Math.ceil(count / itemsPerPage) : 0;
+
+} catch (err) {
+  fetchError = err;
+  console.error("[supabase]: notifications fetch failed!", {
+    message: err.message,
+    details: err.details,
+    hint: err.hint,
+  });
+}
+
+const staticData = {
+  heading: "Notifications & Announcements",
+  subHeading: "Stay updated with Darul Uloom bilalia",
 };
 ---
 
 <BaseLayout>
+  <main class="mt-44 bg-linear-to-b from-gray-50 to-white min-h-screen">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold">{staticData.heading}</h1>
+      <p class="text-xl text-gray-600 mt-4">{staticData.subHeading}</p>
 
-    <main class="mt-44 bg-linear-to-b from-gray-50 to-white min-h-screen">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <h1 class="text-5xl md:text-6xl font-bold">{ pageData.heading}</h1>
-            <p class="text-xl text-gray-600 mt-4">{pageData.subHeading}</p>
+      {fetchError && (
+      <span class="my-16">
+        <NotFound 
+          data={{
+            title: "Error",
+            quote: "Unable to load announcements",
+            translation: "There was an issue fetching the latest notifications. Please try again later."
+          }} 
+        />
 
-            {notifications && notifications?.length > 0 && (
-            <div class="grid gap-8 mt-12 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                {notifications.map((n) => (
-                <Card notification={n} path="notification" />
-                ))}
-            </div>
-            )}
+      </span>
+      )}
 
-            {(!notifications || notifications.length === 0) && (
-            <div class="mt-20 flex justify-center">
-                <NotFound
-                data={notFoundData}
-                centered={false}
-                wrapperPadding="py-12"
-                contentPadding="py-8"
-                />
+      {!fetchError && notifications.length === 0 && (
+        <NotFound 
+          data={{
+            title: "No Announcements",
+            quote: "Nothing new here",
+            translation: "There are currently no announcements to display. Please check back later."
+          }} 
+        />
+      )}
 
-            </div>
-            )}
-
-            <!-- Pagination -->
-            <Pagination totalPages={totalPages} currentPage={page} baseUrl="/notifications" />
-
-            <div class="pt-4 pb-10">
-            <ClosingNote/>
-            <div>
-
+      {!fetchError && notifications.length > 0 && (
+        <div class="grid gap-8 mt-12 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {notifications.map((n) => (
+            <Card notification={n} path="notification" />
+          ))}
         </div>
+      )}
 
-    </main>
+      <!-- Pagination -->
+      {totalPages > 1 && (
+        <Pagination totalPages={totalPages} currentPage={page} baseUrl="/notifications" />
+      )}
 
+      <div class="pt-4 pb-10">
+        <ClosingNote/>
+      </div>
+    </div>
+  </main>
 </BaseLayout>
+

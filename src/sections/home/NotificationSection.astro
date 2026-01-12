@@ -14,6 +14,7 @@ sectionTitle : "Latest News & Announcements",
 
 let notifications = [];
 let fetchError = null;
+
 const { data, error } = await supabase
 .from('notifications') 
 .select('search_id, title, date_onsite, url_slug')
@@ -63,9 +64,6 @@ notifications = data ?? [];
         {!fetchError && notifications.length > 0 && (
         <NotificationTable notifications={notifications} />
         )}
-
-
-
 
 
 
