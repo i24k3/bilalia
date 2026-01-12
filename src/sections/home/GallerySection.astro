@@ -27,7 +27,7 @@ const {title, images, link}= {
     {/* EVENT-STYLE IMAGE CAROUSEL */}
     <div class="flex gap-8 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
       {images.map((image, index) => (
-        <div class="flex-shrink-0 w-full snap-center">
+        <div class="shrink-0 w-full snap-center">
 
           {/* Image (same size as event page) */}
           <div class="rounded-2xl overflow-hidden shadow-xl border border-gray-200">
@@ -35,13 +35,13 @@ const {title, images, link}= {
               src={image.src}
               alt={image.alt}
               loading="lazy"
-              class="w-full h-64 sm:h-80 md:h-96 lg:h-[560px] object-cover"
+              class="w-full h-64 sm:h-80 md:h-96 lg:h-140 object-cover"
             />
           </div>
 
           {/* Caption under image */}
           {image.caption && (
-            <p class="mt-4 text-center text-gray-600 text-base sm:text-lg max-w-3xl mx-auto">
+            <p class="mt-4 text-center text-gray-800 text-base sm:text-lg max-w-3xl mx-auto overline">
               {image.caption}
             </p>
           )}

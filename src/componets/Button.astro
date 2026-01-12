@@ -7,55 +7,50 @@ const {
 } = Astro.props;
 
 const base = `
-  inline-flex items-center justify-center
-  font-semibold tracking-wide
-  rounded-lg transition-all duration-200
-  focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2
-  relative overflow-hidden
-  select-none
+inline-flex items-center justify-center
+font-semibold tracking-wide
+rounded-lg transition-all duration-200
+focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2
+relative overflow-hidden select-none
 `;
 
 let classes;
 
 switch (type) {
-  // MAIN ACTION
+  // PRIMARY: subtle brightness on hover
   case "primary":
     classes = `
       ${base}
       px-10 py-3
       bg-emerald-800 text-gray-50
       shadow-sm
-      hover:bg-emerald-700 hover:shadow-md
-      hover:text-white
-      active:bg-emerald-700
+      hover:brightness-110
+      active:brightness-90
     `;
     break;
 
-  // SECONDARY / LESS EMPHASIS
+  // SECONDARY: glass reflection on hover
   case "secondary":
     classes = `
       ${base}
       px-8 py-2
       bg-gray-800 text-white
       shadow-sm
-      hover:bg-gray-700 hover:shadow-md
-      active:bg-gray-900
+      before:absolute before:top-0 before:left-[-75%] before:h-full before:w-1/2 before:bg-white before:opacity-10 before:rotate-12 before:transition-transform before:duration-500 hover:before:translate-x-[300%]
     `;
     break;
 
-  // FULL-WIDTH SECONDARY
+  // SECONDARY-LONG: glass reflection full width
   case "secondary-long":
     classes = `
-      ${base}
-      block w-full py-3 text-lg
+      ${base} block w-full py-3 text-lg
       bg-gray-800 text-white
       shadow-sm
-      hover:bg-gray-700 hover:shadow-md
-      active:bg-gray-600
+      before:absolute before:top-0 before:left-[-75%] before:h-full before:w-1/2 before:bg-white before:opacity-10 before:rotate-12 before:transition-transform before:duration-500 hover:before:translate-x-[300%]
     `;
     break;
 
-  // WHITE BUTTON / CARD-LIKE
+  // TERTIARY: simple background and text hover
   case "tertiary":
     classes = `
       ${base}
@@ -63,45 +58,52 @@ switch (type) {
       bg-white text-gray-800
       border border-gray-200
       shadow-sm
-      hover:bg-gray-300 hover:border-gray-400
-      hover:text-gray-900
+      hover:bg-gray-300 hover:border-gray-400 hover:text-gray-900
     `;
     break;
 
-case "minimal":
-  classes = `
-    ${base}
-    inline-flex items-center gap-1 text-gray-500 hover:text-black font-medium text-base sm:text-lg leading-none transition group
-  `;
-  break;
+  // MINIMAL: underline slide
+  case "minimal":
+    classes = `
+      ${base} inline-flex items-center gap-1
+      text-gray-500 hover:text-black font-medium text-base sm:text-lg leading-none
+      before:absolute before:-bottom-0.5 before:left-0 before:h-[1.5px] before:w-full before:bg-gray-900 before:scale-x-0 before:origin-left before:transition-transform before:duration-300
+      hover:before:scale-x-100
+    `;
+    break;
 
-  // OUTLINED BUTTON
+  // OUTLINED: fill background slide
   case "outlined":
     classes = `
       ${base}
       px-8 py-3
-      bg-transparent text-gray-900 border-2 border-gray-800
-      hover:bg-gray-200 hover:border-gray-700 hover:text-gray-700
+      border-2 border-gray-800
+      relative overflow-hidden
+      before:absolute before:inset-0 before:bg-gray-800 before:scale-x-0 before:origin-left before:transition-transform before:duration-300
+      hover:before:scale-x-100
+      hover:text-white
+      z-10
     `;
     break;
 
-  // GHOST BUTTON
+  // GHOST: underline slide
   case "ghost":
     classes = `
       ${base}
       px-6 py-2
       bg-transparent text-gray-800
-      hover:bg-gray-50 hover:text-emerald-600
-      hover:underline
+      relative
+      after:absolute after:-bottom-0.5 after:left-0 after:h-[1.5px] after:w-full after:bg-emerald-600 after:scale-x-0 after:origin-left after:transition-transform after:duration-300
+      hover:text-emerald-600 hover:after:scale-x-100
     `;
     break;
 
   default:
-    classes = `${base} px-6 py-3 text-gray-800 bg-gray-100`;
+    classes = `${base} px-6 py-3 text-gray-800 bg-gray-100 hover:bg-gray-200`;
 }
 ---
 
 <a href={href} target={target} class={classes}>
-  {text}
+  <span class="relative z-20 transition-colors duration-300">{text}</span>
 </a>
 

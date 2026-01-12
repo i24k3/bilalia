@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layout/BaseLayout.astro";
 import NotFound from "../componets/NotFound.astro";
+import ClosingNote from "../componets/ClosingNote.astro";
 
 const myData = {
   quote: "لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ — Never despair of Allah’s mercy.",
@@ -15,5 +16,10 @@ const myButtons = [
 ---
 
 <BaseLayout>
-    <NotFound data={myData} buttons={myButtons} />
+  <!-- Full-screen wrapper -->
+  <div class="min-h-screen flex flex-col items-center justify-center bg-gray-50">
+    <NotFound data={myData} buttons={myButtons} centered={true} />
+    <ClosingNote/>
+  </div>
 </BaseLayout>
+

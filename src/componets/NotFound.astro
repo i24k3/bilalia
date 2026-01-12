@@ -5,9 +5,7 @@ import Button from "../componets/Button.astro";
 const {
   data,
   buttons = [],
-  wrapperPadding = "pt-24 pb-16",
-  contentPadding = "py-14 sm:py-20",
-  centered = true,
+  centered = false,       // whether to center full-screen
   minHeight = "min-h-screen",
 } = Astro.props;
 
@@ -22,22 +20,19 @@ const defaultData = {
 
 const pageData = data || defaultData;
 
-// Layout classes
+// Wrapper classes: optional vertical centering
 const wrapperClasses = `
   bg-gray-50
-  ${wrapperPadding}
   ${centered ? `${minHeight} flex flex-col items-center justify-center` : ""}
 `;
 ---
 
 <div class={wrapperClasses}>
-
   <div class="container mx-auto px-4 max-w-3xl">
     <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-
+      
       {/* CONTENT */}
-      <div class={`px-8 sm:px-14 text-center ${contentPadding}`}>
-
+      <div class="px-8 sm:px-14 text-center py-14 sm:py-20">
         <span class="block text-sm tracking-widest text-gray-400 mb-6">
           {pageData.title}
         </span>
@@ -57,7 +52,6 @@ const wrapperClasses = `
         <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-6">
           {pageData.translation}
         </p>
-
       </div>
     </div>
   </div>
@@ -75,11 +69,6 @@ const wrapperClasses = `
       ))}
     </div>
   )}
-
-  {/* FOOTER */}
-  <div class="text-center px-6 sm:px-12 mt-12 border-t border-gray-200 pt-6 text-gray-500 text-xs sm:text-sm tracking-widest uppercase">
-    Darul Uloom Bilaliya • Established 1991
-  </div>
 
 </div>
 
