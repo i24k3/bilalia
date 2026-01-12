@@ -133,3 +133,21 @@ Global styles and Tailwind configuration.
 - `global.css`
 
 
+
+
+## Quesions
+
+time for some questions:
+
+-  Question: Why is AudioCard/VideoCard in sections but NotificationTable in components?
+> AudioCard and VideoCard are currently specific to lecture pages, so they live in sections/lectures/ to reflect their limited scope. If these cards are reused elsewhere later, we can move them to components/. In contrast, NotificationTable is designed as a reusable component, so it naturally lives in components/.
+
+- Question: Singular vs plural routes; [slug].astro vs [coursepage].astro
+> Singular and plural routes are used to separate pagination from detail pages for a cleaner URL structure. [coursepage].astro explicitly indicates a paginated course page, which improves developer clarity, especially in projects with multiple dynamic routes. This avoids confusion when opening multiple [slug].astro files.
+
+- Question: HeroSection, NotificationSection, GallerySection under sections/home/ instead of components
+> HeroSection, NotificationSection, and GallerySection are currently specific to the home page, so they are organized under sections/home/. If they become reusable across other pages in the future, we can relocate them to components/.
+
+- Question: NotFound, supabase.js, mixing reusable pieces
+> NotFound.astro serves as both a 404 page and a fallback for missing data. The supabase.js file is currently generic for simplicity, with the option to split queries per table in the future. Some UI pieces remain in sections to reduce unnecessary component proliferation and improve developer experience, especially when they are not widely reused yet.
+
