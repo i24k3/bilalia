@@ -24,30 +24,50 @@ const {title, images, link}= {
       {title}
     </h2>
 
-    {/* EVENT-STYLE IMAGE CAROUSEL */}
-    <div class="flex gap-8 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
-      {images.map((image, index) => (
-        <div class="shrink-0 w-full snap-center">
+    {/* Buttons + Scrollable Gallery Wrapper */}
+    <div class="relative">
+      
+      {/* Prev button */}
+      <button
+        id="prev-btn"
+        class="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur border border-gray-200 shadow-lg rounded-full w-12 h-12 flex items-center justify-center z-10 hover:scale-105 transition"
+        aria-label="Previous"
+      >
+        ‹
+      </button>
 
-          {/* Image (same size as event page) */}
-          <div class="rounded-2xl overflow-hidden shadow-xl border border-gray-200">
-            <img
-              src={image.src}
-              alt={image.alt}
-              loading="lazy"
-              class="w-full h-64 sm:h-80 md:h-96 lg:h-140 object-cover"
-            />
+      {/* Scrollable gallery */}
+      <div
+        id="gallery-scroll"
+        class="flex gap-8 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 scroll-smooth"
+      >
+        {images.map((image) => (
+          <div class="shrink-0 w-full sm:w-80 md:w-96 snap-center">
+            <div class="rounded-2xl overflow-hidden shadow-xl border border-gray-200">
+              <img
+                src={image.src}
+                alt={image.alt}
+                loading="lazy"
+                class="w-full h-64 sm:h-80 md:h-96 lg:h-140 object-cover"
+              />
+            </div>
+            {image.caption && (
+              <p class="mt-4 text-center text-gray-800 text-base sm:text-lg max-w-3xl mx-auto overline">
+                {image.caption}
+              </p>
+            )}
           </div>
+        ))}
+      </div>
 
-          {/* Caption under image */}
-          {image.caption && (
-            <p class="mt-4 text-center text-gray-800 text-base sm:text-lg max-w-3xl mx-auto overline">
-              {image.caption}
-            </p>
-          )}
-
-        </div>
-      ))}
+      {/* Next button */}
+      <button
+        id="next-btn"
+        class="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur border border-gray-200 shadow-lg rounded-full w-12 h-12 flex items-center justify-center z-10 hover:scale-105 transition"
+        aria-label="Next"
+      >
+        ›
+      </button>
     </div>
 
     {/* View Gallery Button */}
@@ -67,5 +87,23 @@ const {title, images, link}= {
     </div>
 
   </div>
+
+  {/* Scroll buttons JS */}
+  <script type="module" is:inline>
+    const scrollContainer = document.getElementById('gallery-scroll');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+
+    // Scroll width = one child width
+    const childWidth = scrollContainer.children[0].offsetWidth + 32; // 32 = gap-8
+
+    prevBtn.addEventListener('click', () => {
+      scrollContainer.scrollBy({ left: -childWidth, behavior: 'smooth' });
+    });
+
+    nextBtn.addEventListener('click', () => {
+      scrollContainer.scrollBy({ left: childWidth, behavior: 'smooth' });
+    });
+  </script>
 </section>
 
